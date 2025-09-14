@@ -2,24 +2,12 @@ document.addEventListener("DOMContentLoaded", function() {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
     // --- SMOOTH SCROLL FOR HEADER LINKS ---
-    const navLinks = document.querySelectorAll('.main-header nav a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
+    document.querySelectorAll('.main-header a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            const targetId = link.getAttribute('href');
+            const targetId = this.getAttribute('href');
             gsap.to(window, { duration: 1.5, scrollTo: targetId, ease: 'power2.inOut' });
         });
-    });
-
-    // --- BACKGROUND SHAPES ANIMATION ---
-    gsap.to(".shape", {
-        x: 'random(-50, 50)',
-        y: 'random(-50, 50)',
-        scale: 'random(0.8, 1.2)',
-        duration: 4,
-        ease: 'sine.inOut',
-        repeat: -1,
-        yoyo: true
     });
 
     // --- HERO SECTION ANIMATIONS ---
@@ -27,18 +15,19 @@ document.addEventListener("DOMContentLoaded", function() {
     
     heroTl.to('.hero-text .line', {
         y: 0,
-        stagger: 0.2,
+        stagger: 0.15,
         delay: 0.2
     })
-    .from('#profile-pic', {
+    .from('.hero-image', {
         scale: 0.8,
         opacity: 0,
         duration: 1.5
     }, "-=1");
 
-    // Hero image parallax effect
+    // Hero image parallax on scroll
     gsap.to('#profile-pic', {
-        y: -50,
+        yPercent: -10,
+        ease: 'none',
         scrollTrigger: {
             trigger: '.hero-section',
             start: 'top top',
@@ -51,58 +40,47 @@ document.addEventListener("DOMContentLoaded", function() {
     const projectPanels = document.querySelectorAll('.project-panel');
 
     projectPanels.forEach((panel, i) => {
-        const view1 = panel.querySelector('.view-1');
-        const view2 = panel.querySelector('.view-2');
         const bgColor = panel.getAttribute('data-color');
-        const initialBgColor = i === 0 ? '#0d0c0f' : projectPanels[i-1].getAttribute('data-color');
+        const initialBgColor = i === 0 ? '#0d0c0f' : projectPanels[i - 1].getAttribute('data-color');
 
+        // Select the two views for text and images separately
+        const detailView1 = panel.querySelector('.project-details .view-1');
+        const detailView2 = panel.querySelector('.project-details .view-2');
+        const imageView1 = panel.querySelector('.project-image-stack .view-1');
+        const imageView2 = panel.querySelector('.project-image-stack .view-2');
 
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: panel,
                 pin: true,
                 start: 'top top',
-                end: '+=1500', // How long the pin lasts in pixels scrolled
-                scrub: 1, // Smoothly syncs with scroll
-                onEnter: () => gsap.to('body', { backgroundColor: bgColor, duration: 1, overwrite: 'auto' }),
-                onLeaveBack: () => gsap.to('body', { backgroundColor: initialBgColor, duration: 1, overwrite: 'auto'}),
+                end: '+=1500', 
+                scrub: 1, 
+                onEnter: () => gsap.to('body', { backgroundColor: bgColor, duration: 0.5, overwrite: 'auto' }),
+                onLeaveBack: () => gsap.to('body', { backgroundColor: initialBgColor, duration: 0.5, overwrite: 'auto'}),
             }
         });
 
-        // Animate from view-1 to view-2
-        tl.to(view1, {
-            scale: 0.9,
-            opacity: 0,
-            y: '-10%',
-            ease: 'power2.inOut'
-        })
-        .from(view2, {
-            scale: 1.1,
-            opacity: 0,
-            y: '10%',
-            ease: 'power2.inOut'
-        }, '<') // The '<' starts this animation at the same time as the previous one
-        .from(view2.querySelector('.project-description'), {
-            opacity: 0,
-            y: 30,
-            ease: 'power2.out'
-        }, '-=0.5'); // Starts slightly after the view-2 image fades in
+        // Animate from view-1 to view-2 for both text and images
+        tl.fromTo(detailView1, { opacity: 1, y: 0 }, { opacity: 0, y: -20, ease: 'power2.in' })
+          .fromTo(imageView1, { opacity: 1, scale: 1 }, { opacity: 0, scale: 0.95, ease: 'power2.in' }, "<")
+          .fromTo(detailView2, { opacity: 0, y: 20 }, { opacity: 1, y: 0, ease: 'power2.out' })
+          .fromTo(imageView2, { opacity: 0, scale: 1.05 }, { opacity: 1, scale: 1, ease: 'power2.out' }, "<");
     });
 
-
     // --- CONTACT FORM ANIMATIONS ---
-    const formElements = gsap.utils.toArray('.contact-section .form-group, .contact-section h2, .contact-section .submit-btn');
+    const formElements = gsap.utils.toArray('.contact-content > *');
 
     gsap.from(formElements, {
         opacity: 0,
         y: 50,
         stagger: 0.1,
         duration: 0.8,
-        ease: 'elastic.out(1, 0.75)',
+        ease: 'power2.out',
         scrollTrigger: {
             trigger: '.contact-section',
             start: 'top 70%',
-            toggleActions: 'play none none none' // Play animation once when it enters the viewport
+            toggleActions: 'play none none reverse'
         }
     });
 
@@ -113,15 +91,12 @@ document.addEventListener("DOMContentLoaded", function() {
         
         const formData = new FormData(this);
         const formObject = {};
-        formData.forEach((value, key) => {
-            formObject[key] = value;
-        });
+        formData.forEach((value, key) => { formObject[key] = value; });
 
         console.log("Form Submitted! Data:", formObject);
         alert("Thank you! Your message has been logged to the console.");
         
         this.reset();
-        // Manually trigger label reset by removing focus
-        document.activeElement.blur();
+        document.activeElement.blur(); // Remove focus from the button
     });
 });
