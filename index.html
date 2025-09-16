@@ -26,20 +26,6 @@
             background: #000;
         }
 
-        /* Scrollbar styling */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--secondary);
-            border-radius: 5px;
-        }
-
         /* Header */
         .header {
             position: fixed;
@@ -69,7 +55,6 @@
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            cursor: pointer;
         }
 
         .nav-links {
@@ -82,12 +67,10 @@
             color: var(--light);
             text-decoration: none;
             font-weight: 500;
-            position: relative;
-            transition: all 0.3s ease;
             padding: 8px 16px;
             border-radius: 25px;
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
         }
 
         .nav-links a:hover {
@@ -113,10 +96,6 @@
             margin: 0 auto;
             width: 100%;
             align-items: center;
-        }
-
-        .hero-text {
-            z-index: 2;
         }
 
         .hero-text h1 {
@@ -146,13 +125,7 @@
             opacity: 0;
         }
 
-        .hero-image {
-            position: relative;
-            z-index: 2;
-        }
-
         .profile-wrapper {
-            position: relative;
             width: 100%;
             max-width: 500px;
             margin: 0 auto;
@@ -167,55 +140,12 @@
             transform: scale(0.8);
         }
 
-        /* Floating shapes */
-        .shape {
-            position: absolute;
-            opacity: 0.1;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .shape-1 {
-            width: 300px;
-            height: 300px;
-            background: var(--accent);
-            border-radius: 50%;
-            top: 10%;
-            left: -5%;
-            animation-delay: 0s;
-        }
-
-        .shape-2 {
-            width: 200px;
-            height: 200px;
-            background: var(--primary);
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            top: 60%;
-            right: -5%;
-            animation-delay: 2s;
-        }
-
-        .shape-3 {
-            width: 150px;
-            height: 150px;
-            background: var(--secondary);
-            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-            bottom: 10%;
-            left: 10%;
-            animation-delay: 4s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(180deg); }
-        }
-
-        /* Projects Section - Full Screen */
+        /* Projects - Full Screen with Left Overlay */
         .project-section {
             min-height: 100vh;
             position: relative;
             display: flex;
             align-items: center;
-            justify-content: center;
             overflow: hidden;
         }
 
@@ -241,24 +171,29 @@
             opacity: 1;
         }
 
+        /* LEFT SIDE OVERLAY - NARROWER */
         .project-overlay {
             position: relative;
             z-index: 2;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
-            padding: 60px;
-            border-radius: 20px;
-            max-width: 600px;
-            text-align: center;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 60px 40px;
+            max-width: 450px;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 0;
             opacity: 0;
-            transform: translateY(50px);
+            transform: translateX(-50px);
         }
 
         .project-number {
-            font-size: 80px;
+            font-size: 100px;
             font-weight: 900;
             line-height: 1;
-            opacity: 0.3;
+            opacity: 0.2;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -274,10 +209,10 @@
         }
 
         .project-description {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.85);
             margin: 20px 0;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         .project-tech {
@@ -285,36 +220,39 @@
             flex-wrap: wrap;
             gap: 10px;
             margin: 30px 0;
-            justify-content: center;
         }
 
         .tech-tag {
             padding: 8px 16px;
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
             border-radius: 20px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--light);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
+        /* PROJECT BUTTON - HIGHLY VISIBLE */
         .project-btn {
             display: inline-block;
-            padding: 15px 50px;
+            padding: 18px 60px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             text-decoration: none;
             border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.2rem;
+            font-weight: 700;
+            font-size: 1.3rem;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
-            margin-top: 20px;
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.5);
+            margin-top: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid transparent;
         }
 
         .project-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(255, 107, 107, 0.7);
+            border: 2px solid var(--accent);
         }
 
         /* Contact Section */
@@ -349,11 +287,11 @@
         }
 
         .contact-form {
-            margin-top: 50px;
+            margin-top: 40px;
         }
 
         .form-group {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             text-align: left;
         }
 
@@ -362,6 +300,7 @@
             margin-bottom: 10px;
             font-weight: 600;
             color: var(--dark);
+            font-size: 1.1rem;
         }
 
         .form-group input,
@@ -384,26 +323,28 @@
             box-shadow: 0 5px 20px rgba(78, 205, 196, 0.2);
         }
 
+        /* CONTACT SUBMIT BUTTON - HIGHLY VISIBLE */
         .submit-btn {
-            padding: 15px 50px;
+            padding: 18px 60px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
             border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 600;
+            font-size: 1.3rem;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
-            margin-top: 20px;
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.5);
+            margin-top: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .submit-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(255, 107, 107, 0.7);
         }
 
-        /* Social Icons */
         .social-icons {
             margin-top: 50px;
             display: flex;
@@ -421,7 +362,6 @@
             justify-content: center;
             text-decoration: none;
             color: var(--dark);
-            font-size: 1.3rem;
             transition: all 0.3s ease;
         }
 
@@ -431,42 +371,14 @@
             transform: translateY(-5px) rotate(360deg);
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .header {
-                padding: 15px 20px;
-            }
-
-            .nav-links {
-                flex-wrap: wrap;
-                gap: 10px;
-            }
-
-            .nav-links a {
-                padding: 6px 12px;
-                font-size: 0.9rem;
-            }
-
             .hero-content {
                 grid-template-columns: 1fr;
-                gap: 40px;
             }
-
-            .hero {
-                padding: 100px 20px 50px;
-            }
-
             .project-overlay {
-                padding: 30px;
-                margin: 20px;
-            }
-
-            .project-title {
-                font-size: 2.5rem;
-            }
-
-            .contact {
-                padding: 50px 20px;
+                max-width: 100%;
+                min-height: auto;
+                padding: 40px 20px;
             }
         }
     </style>
@@ -489,10 +401,6 @@
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-        
         <div class="hero-content">
             <div class="hero-text">
                 <h1>
@@ -527,7 +435,7 @@
                 <span class="tech-tag">GSAP</span>
                 <span class="tech-tag">WebGL</span>
             </div>
-            <a href="https://nova-chi-blush.vercel.app" target="_blank" class="project-btn">See Project</a>
+            <a href="https://nova-chi-blush.vercel.app" target="_blank" class="project-btn">SEE PROJECT</a>
         </div>
     </section>
 
@@ -546,7 +454,7 @@
                 <span class="tech-tag">Framer Motion</span>
                 <span class="tech-tag">Tailwind CSS</span>
             </div>
-            <a href="https://laya-sooty.vercel.app" target="_blank" class="project-btn">See Project</a>
+            <a href="https://laya-sooty.vercel.app" target="_blank" class="project-btn">SEE PROJECT</a>
         </div>
     </section>
 
@@ -566,7 +474,7 @@
                 <span class="tech-tag">D3.js</span>
                 <span class="tech-tag">WebGL</span>
             </div>
-            <a href="https://3-dscan.vercel.app" target="_blank" class="project-btn">See Project</a>
+            <a href="https://3-dscan.vercel.app" target="_blank" class="project-btn">SEE PROJECT</a>
         </div>
     </section>
 
@@ -585,7 +493,7 @@
                 <span class="tech-tag">Canvas API</span>
                 <span class="tech-tag">Game Physics</span>
             </div>
-            <a href="https://newgame-xi.vercel.app" target="_blank" class="project-btn">Play Game</a>
+            <a href="https://newgame-xi.vercel.app" target="_blank" class="project-btn">PLAY GAME</a>
         </div>
     </section>
 
@@ -608,7 +516,7 @@
                     <label for="message">Message</label>
                     <textarea id="message" name="message" rows="5" required></textarea>
                 </div>
-                <button type="submit" class="submit-btn">Send Message</button>
+                <button type="submit" class="submit-btn">SEND MESSAGE</button>
             </form>
             
             <div class="social-icons">
@@ -631,307 +539,9 @@
         </div>
     </section>
 
-    <!-- GSAP Scripts -->
+    <!-- Load JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script>
-        // Register ScrollTrigger
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            if (window.scrollY > 100) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // Smooth scroll for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-
-        // Hero animations
-        gsap.timeline()
-            .to('.hero-text h1 span', {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                stagger: 0.15,
-                ease: 'power3.out'
-            })
-            .to('.hero-text p', {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                ease: 'power3.out'
-            }, '-=0.4')
-            .to('.profile-img', {
-                opacity: 1,
-                scale: 1,
-                duration: 1,
-                ease: 'power3.out'
-            }, '-=0.6');
-
-        // Auto-switch images for each project
-        document.querySelectorAll('.project-section').forEach(section => {
-            const images = section.querySelectorAll('.project-bg img');
-            let currentIndex = 0;
-
-            // Image switching function
-            function switchImage() {
-                images[currentIndex].classList.remove('active');
-                currentIndex = (currentIndex + 1) % images.length;
-                images[currentIndex].classList.add('active');
-            }
-
-            // Start switching after 2.5 seconds, then every 2.5 seconds
-            setInterval(switchImage, 2500);
-        });
-
-        // Project sections scroll animations
-        gsap.utils.toArray('.project-overlay').forEach(overlay => {
-            gsap.to(overlay, {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: overlay,
-                    start: 'top 80%',
-                    once: true
-                }
-            });
-        });
-
-        // Animate project elements on scroll
-        gsap.utils.toArray('.project-section').forEach(section => {
-            const timeline = gsap.timeline({
-                scrollTrigger: {
-                    trigger: section,
-                    start: 'top 70%',
-                    once: true
-                }
-            });
-
-            timeline
-                .from(section.querySelector('.project-number'), {
-                    scale: 0,
-                    opacity: 0,
-                    duration: 0.6,
-                    ease: 'back.out(1.7)'
-                })
-                .from(section.querySelector('.project-title'), {
-                    y: 30,
-                    opacity: 0,
-                    duration: 0.6
-                }, '-=0.3')
-                .from(section.querySelector('.project-description'), {
-                    y: 20,
-                    opacity: 0,
-                    duration: 0.6
-                }, '-=0.3')
-                .from(section.querySelectorAll('.tech-tag'), {
-                    scale: 0,
-                    opacity: 0,
-                    duration: 0.4,
-                    stagger: 0.1,
-                    ease: 'back.out(1.7)'
-                }, '-=0.2')
-                .from(section.querySelector('.project-btn'), {
-                    scale: 0,
-                    opacity: 0,
-                    duration: 0.6,
-                    ease: 'back.out(1.7)'
-                }, '-=0.2');
-        });
-
-        // Contact section animations
-        ScrollTrigger.create({
-            trigger: '.contact',
-            start: 'top 80%',
-            onEnter: () => {
-                gsap.timeline()
-                    .from('.contact h2', {
-                        y: 50,
-                        opacity: 0,
-                        duration: 0.8,
-                        ease: 'power3.out'
-                    })
-                    .from('.contact > .contact-container > p', {
-                        y: 30,
-                        opacity: 0,
-                        duration: 0.8,
-                        ease: 'power3.out'
-                    }, '-=0.5')
-                    .from('.form-group', {
-                        y: 30,
-                        opacity: 0,
-                        duration: 0.6,
-                        stagger: 0.15,
-                        ease: 'power3.out'
-                    }, '-=0.4')
-                    .from('.submit-btn', {
-                        scale: 0,
-                        opacity: 0,
-                        duration: 0.8,
-                        ease: 'elastic.out(1, 0.8)'
-                    }, '-=0.2')
-                    .from('.social-icon', {
-                        scale: 0,
-                        rotation: -180,
-                        opacity: 0,
-                        duration: 0.5,
-                        stagger: 0.1,
-                        ease: 'back.out(1.7)'
-                    }, '-=0.4');
-            },
-            once: true
-        });
-
-        // Form submission (logs to console as requested)
-        document.getElementById('contactForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const formData = {
-                name: e.target.name.value,
-                email: e.target.email.value,
-                message: e.target.message.value
-            };
-            console.log('Form submitted:', formData);
-            
-            // Animate button on submit
-            const btn = e.target.querySelector('.submit-btn');
-            gsap.timeline()
-                .to(btn, {
-                    scale: 0.95,
-                    duration: 0.1
-                })
-                .to(btn, {
-                    scale: 1.1,
-                    duration: 0.3,
-                    ease: 'elastic.out(1, 0.5)'
-                })
-                .set(btn, {
-                    innerHTML: 'Message Sent! ✨'
-                });
-            
-            // Reset form
-            setTimeout(() => {
-                e.target.reset();
-                btn.innerHTML = 'Send Message';
-            }, 3000);
-        });
-
-        // Parallax effect for hero shapes
-        gsap.utils.toArray('.shape').forEach((shape, i) => {
-            gsap.to(shape, {
-                yPercent: -30 * (i + 1),
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: '.hero',
-                    start: 'top top',
-                    end: 'bottom top',
-                    scrub: 1
-                }
-            });
-        });
-
-        // Add hover effect to buttons
-        document.querySelectorAll('.project-btn, .submit-btn').forEach(btn => {
-            btn.addEventListener('mouseenter', () => {
-                gsap.to(btn, {
-                    scale: 1.05,
-                    duration: 0.3,
-                    ease: 'power2.out'
-                });
-            });
-            
-            btn.addEventListener('mouseleave', () => {
-                gsap.to(btn, {
-                    scale: 1,
-                    duration: 0.3,
-                    ease: 'power2.out'
-                });
-            });
-        });
-
-        // Add magnetic effect to project overlays
-        document.querySelectorAll('.project-overlay').forEach(overlay => {
-            overlay.addEventListener('mousemove', (e) => {
-                const rect = overlay.getBoundingClientRect();
-                const x = (e.clientX - rect.left - rect.width / 2) * 0.02;
-                const y = (e.clientY - rect.top - rect.height / 2) * 0.02;
-                
-                gsap.to(overlay, {
-                    x: x,
-                    y: y,
-                    duration: 0.3,
-                    ease: 'power2.out'
-                });
-            });
-            
-            overlay.addEventListener('mouseleave', () => {
-                gsap.to(overlay, {
-                    x: 0,
-                    y: 0,
-                    duration: 0.3,
-                    ease: 'power2.out'
-                });
-            });
-        });
-
-        // Custom cursor
-        const cursor = document.createElement('div');
-        cursor.style.cssText = `
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #4ECDC4;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.15s ease-out;
-            mix-blend-mode: difference;
-        `;
-        document.body.appendChild(cursor);
-
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX - 10 + 'px';
-            cursor.style.top = e.clientY - 10 + 'px';
-        });
-
-        document.querySelectorAll('a, button').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.style.transform = 'scale(2)';
-                cursor.style.background = 'rgba(78, 205, 196, 0.1)';
-            });
-            el.addEventListener('mouseleave', () => {
-                cursor.style.transform = 'scale(1)';
-                cursor.style.background = 'transparent';
-            });
-        });
-
-        // Performance optimization
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            gsap.globalTimeline.timeScale(10);
-        }
-
-        // Refresh ScrollTrigger on window resize
-        let resizeTimer;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(() => {
-                ScrollTrigger.refresh();
-            }, 250);
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
