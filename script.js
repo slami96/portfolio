@@ -305,3 +305,18 @@ console.log('All project links:');
 document.querySelectorAll('.project-button').forEach((btn, i) => {
     console.log(`Project ${i+1}: ${btn.href}`);
 });
+
+// Make absolutely sure buttons are clickable
+document.querySelectorAll('.project-button').forEach(btn => {
+    // Force visibility
+    btn.style.display = 'inline-block';
+    btn.style.visibility = 'visible';
+    btn.style.opacity = '1';
+    btn.style.pointerEvents = 'auto';
+    
+    // Add click handler to verify it works
+    btn.addEventListener('click', function(e) {
+        console.log('Button clicked! Going to:', this.href);
+        // Don't prevent default - let the link work normally
+    });
+});
