@@ -1,3 +1,6 @@
+// Remove no-js class immediately
+document.documentElement.classList.remove('no-js');
+
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
@@ -61,77 +64,77 @@ gsap.timeline()
         ease: 'power3.out'
     }, '-=0.6');
 
-// PROJECT SECTIONS - NEW ANIMATION SEQUENCE
-// First image -> Second image -> Overlay appears
+// PROJECT SECTIONS - FIXED ANIMATION WITH BETTER TRIGGERS
 document.querySelectorAll('.project-section').forEach((section, index) => {
     const img1 = section.querySelector('.img-1');
     const img2 = section.querySelector('.img-2');
     const overlay = section.querySelector('.project-overlay');
+    const button = section.querySelector('.project-button');
     
-    // Create timeline for each project
-    const tl = gsap.timeline({
-        scrollTrigger: {
-            trigger: section,
-            start: 'top 70%',
-            end: 'center center',
-            scrub: 1,
-            onEnter: () => {
-                // Start the sequence when section comes into view
-                gsap.timeline()
-                    // Show first image
-                    .to(img1, {
-                        opacity: 1,
-                        duration: 0.8,
-                        ease: 'power2.out'
-                    })
-                    // Show second image after delay
-                    .to(img2, {
-                        opacity: 1,
-                        duration: 0.8,
-                        ease: 'power2.out'
-                    }, '+=0.5')
-                    // Fade first image slightly
-                    .to(img1, {
-                        opacity: 0.3,
-                        duration: 0.5
-                    }, '-=0.3')
-                    // Show overlay with all content
-                    .to(overlay, {
-                        opacity: 1,
-                        duration: 0.8,
-                        ease: 'power3.out'
-                    }, '-=0.2')
-                    // Animate overlay content
-                    .from(overlay.querySelector('.project-number'), {
-                        scale: 0,
-                        opacity: 0,
-                        duration: 0.5,
-                        ease: 'back.out(1.7)'
-                    }, '-=0.4')
-                    .from(overlay.querySelector('.project-title'), {
-                        x: -30,
-                        opacity: 0,
-                        duration: 0.5
-                    }, '-=0.3')
-                    .from(overlay.querySelector('.project-description'), {
-                        x: -20,
-                        opacity: 0,
-                        duration: 0.5
-                    }, '-=0.3')
-                    .from(overlay.querySelectorAll('.tech-tag'), {
-                        scale: 0,
-                        opacity: 0,
-                        duration: 0.3,
-                        stagger: 0.05,
-                        ease: 'back.out(1.7)'
-                    }, '-=0.2')
-                    .from(overlay.querySelector('.project-button'), {
-                        scale: 0,
-                        opacity: 0,
-                        duration: 0.6,
-                        ease: 'elastic.out(1, 0.5)'
-                    }, '-=0.1');
-            }
+    // Create ScrollTrigger for each project
+    ScrollTrigger.create({
+        trigger: section,
+        start: 'top 90%', // More generous trigger
+        end: 'bottom 60%',
+        onEnter: () => {
+            console.log(`Animating project ${index + 1}`);
+            
+            // Animate sequence
+            gsap.timeline()
+                // Show first image
+                .to(img1, {
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: 'power2.out'
+                })
+                // Show second image
+                .to(img2, {
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: 'power2.out'
+                }, '+=0.3')
+                // Fade first image slightly
+                .to(img1, {
+                    opacity: 0.3,
+                    duration: 0.5
+                }, '-=0.3')
+                // Show overlay - CRITICAL FIX
+                .to(overlay, {
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: 'power3.out'
+                }, '-=0.2')
+                // Ensure button is visible
+                .set(button, {
+                    opacity: 1,
+                    visibility: 'visible',
+                    pointerEvents: 'auto'
+                });
+        },
+        once: true // Only trigger once
+    });
+    
+    // FALLBACK: Show overlay on hover as backup
+    section.addEventListener('mouseenter', () => {
+        gsap.to(overlay, {
+            opacity: 1,
+            duration: 0.3
+        });
+    });
+});
+
+// IMMEDIATE VISIBILITY CHECK
+// If user has scrolled past a project section, show its overlay immediately
+window.addEventListener('load', () => {
+    document.querySelectorAll('.project-section').forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.9) {
+            const overlay = section.querySelector('.project-overlay');
+            const images = section.querySelectorAll('.project-img');
+            
+            // Show everything immediately if already in view
+            gsap.set(overlay, { opacity: 1 });
+            gsap.set(images, { opacity: 0.7 });
         }
     });
 });
@@ -297,26 +300,37 @@ window.addEventListener('resize', () => {
     }, 250);
 });
 
-// Debug - Verify all buttons are present
+// DEBUG AND FORCE VISIBILITY
 console.log('=== PORTFOLIO LOADED ===');
-console.log('Project buttons found:', document.querySelectorAll('.project-button').length);
-console.log('Submit button found:', document.querySelector('.form-submit-button') ? 'YES' : 'NO');
-console.log('All project links:');
-document.querySelectorAll('.project-button').forEach((btn, i) => {
+
+// Check and log all buttons
+const projectButtons = document.querySelectorAll('.project-button');
+console.log('Project buttons found:', projectButtons.length);
+projectButtons.forEach((btn, i) => {
     console.log(`Project ${i+1}: ${btn.href}`);
+    // Force each button to be visible as absolute fallback
+    btn.style.cssText += `
+        display: inline-block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    `;
 });
 
-// Make absolutely sure buttons are clickable
+const submitButton = document.querySelector('.form-submit-button');
+console.log('Submit button found:', submitButton ? 'YES' : 'NO');
+if (submitButton) {
+    submitButton.style.cssText += `
+        display: inline-block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    `;
+}
+
+// Log when buttons are clicked
 document.querySelectorAll('.project-button').forEach(btn => {
-    // Force visibility
-    btn.style.display = 'inline-block';
-    btn.style.visibility = 'visible';
-    btn.style.opacity = '1';
-    btn.style.pointerEvents = 'auto';
-    
-    // Add click handler to verify it works
     btn.addEventListener('click', function(e) {
-        console.log('Button clicked! Going to:', this.href);
-        // Don't prevent default - let the link work normally
+        console.log('Project button clicked! Going to:', this.href);
     });
 });
