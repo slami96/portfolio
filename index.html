@@ -15,15 +15,15 @@
             --primary: #FF6B6B;
             --secondary: #4ECDC4;
             --accent: #FFE66D;
-            --dark: #2D3436;
+            --dark: #000000;
             --light: #FFFFFF;
         }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            color: var(--dark);
+            color: var(--light);
             overflow-x: hidden;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #000;
         }
 
         /* Scrollbar styling */
@@ -46,7 +46,7 @@
             top: 0;
             width: 100%;
             padding: 20px 50px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
             z-index: 1000;
             transition: all 0.3s ease;
@@ -54,7 +54,7 @@
 
         .header.scrolled {
             padding: 15px 50px;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(0, 0, 0, 0.9);
         }
 
         .nav {
@@ -74,7 +74,7 @@
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 20px;
             list-style: none;
         }
 
@@ -83,21 +83,15 @@
             text-decoration: none;
             font-weight: 500;
             position: relative;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
             padding: 8px 16px;
             border-radius: 25px;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(5px);
         }
 
-        .header.scrolled .nav-links a {
-            color: var(--dark);
-            background: rgba(78, 205, 196, 0.1);
-        }
-
         .nav-links a:hover {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: var(--light);
             transform: translateY(-2px);
         }
 
@@ -136,6 +130,7 @@
         .hero-text h1 span {
             display: block;
             opacity: 0;
+            transform: translateY(30px);
         }
 
         .hero-text .highlight {
@@ -214,46 +209,63 @@
             50% { transform: translateY(-30px) rotate(180deg); }
         }
 
-        /* Projects Section */
-        .projects {
-            position: relative;
-            background: var(--light);
-        }
-
+        /* Projects Section - Full Screen */
         .project-section {
             min-height: 100vh;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 50px;
+            overflow: hidden;
         }
 
-        .project-container {
-            max-width: 1400px;
+        .project-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
+            height: 100%;
+            z-index: 1;
         }
 
-        .project-info {
-            padding: 40px;
+        .project-bg img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .project-bg img.active {
+            opacity: 1;
+        }
+
+        .project-overlay {
+            position: relative;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            padding: 60px;
+            border-radius: 20px;
+            max-width: 600px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
         }
 
         .project-number {
-            font-size: 120px;
+            font-size: 80px;
             font-weight: 900;
             line-height: 1;
-            opacity: 0.1;
+            opacity: 0.3;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .project-title {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 800;
             margin: 20px 0;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -263,7 +275,7 @@
 
         .project-description {
             font-size: 1.2rem;
-            color: var(--dark);
+            color: rgba(255, 255, 255, 0.9);
             margin: 20px 0;
             line-height: 1.6;
         }
@@ -272,53 +284,37 @@
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin: 20px 0;
+            margin: 30px 0;
+            justify-content: center;
         }
 
         .tech-tag {
             padding: 8px 16px;
-            background: linear-gradient(135deg, rgba(78, 205, 196, 0.1), rgba(255, 107, 107, 0.1));
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             border-radius: 20px;
             font-size: 0.9rem;
-            color: var(--dark);
-            border: 1px solid rgba(78, 205, 196, 0.3);
+            color: var(--light);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .project-btn {
             display: inline-block;
-            padding: 15px 40px;
+            padding: 15px 50px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
             margin-top: 20px;
         }
 
         .project-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
-        }
-
-        .project-images {
-            position: relative;
-            height: 600px;
-        }
-
-        .project-image {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-        }
-
-        .project-image-2 {
-            opacity: 0;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6);
         }
 
         /* Contact Section */
@@ -344,6 +340,12 @@
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        .contact p {
+            color: var(--dark);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
         }
 
         .contact-form {
@@ -388,11 +390,12 @@
             color: white;
             border: none;
             border-radius: 50px;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+            margin-top: 20px;
         }
 
         .submit-btn:hover {
@@ -444,8 +447,7 @@
                 font-size: 0.9rem;
             }
 
-            .hero-content,
-            .project-container {
+            .hero-content {
                 grid-template-columns: 1fr;
                 gap: 40px;
             }
@@ -454,12 +456,13 @@
                 padding: 100px 20px 50px;
             }
 
-            .project-section {
-                padding: 20px;
+            .project-overlay {
+                padding: 30px;
+                margin: 20px;
             }
 
-            .project-images {
-                height: 400px;
+            .project-title {
+                font-size: 2.5rem;
             }
 
             .contact {
@@ -508,92 +511,81 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section class="projects" id="projects">
-        <!-- Project 1: NOVA -->
-        <div class="project-section" id="project1">
-            <div class="project-container">
-                <div class="project-info">
-                    <div class="project-number">01</div>
-                    <h2 class="project-title">NOVA</h2>
-                    <p class="project-description">A cutting-edge smartphone promo website showcasing the latest in mobile technology with immersive 3D visuals and smooth animations.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">React</span>
-                        <span class="tech-tag">Three.js</span>
-                        <span class="tech-tag">GSAP</span>
-                        <span class="tech-tag">WebGL</span>
-                    </div>
-                    <a href="https://nova-chi-blush.vercel.app" target="_blank" class="project-btn">View Project</a>
-                </div>
-                <div class="project-images">
-                    <img src="nova.jpg" alt="NOVA Project" class="project-image project-image-1">
-                    <img src="nova2.jpg" alt="NOVA Project 2" class="project-image project-image-2">
-                </div>
-            </div>
+    <!-- Project 1: NOVA -->
+    <section class="project-section" id="project1">
+        <div class="project-bg">
+            <img src="nova.jpg" alt="NOVA Project" class="active">
+            <img src="nova2.jpg" alt="NOVA Project 2">
         </div>
-
-        <!-- Project 2: LAYA Home -->
-        <div class="project-section" id="project2">
-            <div class="project-container">
-                <div class="project-info">
-                    <div class="project-number">02</div>
-                    <h2 class="project-title">LAYA Home</h2>
-                    <p class="project-description">An elegant architect portfolio featuring stunning residential designs with smooth parallax scrolling and sophisticated typography.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Next.js</span>
-                        <span class="tech-tag">Framer Motion</span>
-                        <span class="tech-tag">Tailwind CSS</span>
-                    </div>
-                    <a href="https://laya-sooty.vercel.app" target="_blank" class="project-btn">View Project</a>
-                </div>
-                <div class="project-images">
-                    <img src="laya.jpg" alt="LAYA Project" class="project-image project-image-1">
-                    <img src="laya2.jpg" alt="LAYA Project 2" class="project-image project-image-2">
-                </div>
+        <div class="project-overlay">
+            <div class="project-number">01</div>
+            <h2 class="project-title">NOVA</h2>
+            <p class="project-description">A cutting-edge smartphone promo website showcasing the latest in mobile technology with immersive 3D visuals and smooth animations.</p>
+            <div class="project-tech">
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">Three.js</span>
+                <span class="tech-tag">GSAP</span>
+                <span class="tech-tag">WebGL</span>
             </div>
+            <a href="https://nova-chi-blush.vercel.app" target="_blank" class="project-btn">See Project</a>
         </div>
+    </section>
 
-        <!-- Project 3: BioCare -->
-        <div class="project-section" id="project3">
-            <div class="project-container">
-                <div class="project-info">
-                    <div class="project-number">03</div>
-                    <h2 class="project-title">BioCare</h2>
-                    <p class="project-description">An innovative 3D health scan demo application featuring interactive body visualization and real-time health metrics display.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Vue.js</span>
-                        <span class="tech-tag">Three.js</span>
-                        <span class="tech-tag">D3.js</span>
-                        <span class="tech-tag">WebGL</span>
-                    </div>
-                    <a href="https://3-dscan.vercel.app" target="_blank" class="project-btn">View Project</a>
-                </div>
-                <div class="project-images">
-                    <img src="biocare.jpg" alt="BioCare Project" class="project-image project-image-1">
-                    <img src="biocare2.jpg" alt="BioCare Project 2" class="project-image project-image-2">
-                </div>
-            </div>
+    <!-- Project 2: LAYA Home -->
+    <section class="project-section" id="project2">
+        <div class="project-bg">
+            <img src="laya.jpg" alt="LAYA Project" class="active">
+            <img src="laya2.jpg" alt="LAYA Project 2">
         </div>
-
-        <!-- Project 4: BrickBreaker -->
-        <div class="project-section" id="project4">
-            <div class="project-container">
-                <div class="project-info">
-                    <div class="project-number">04</div>
-                    <h2 class="project-title">BrickBreaker</h2>
-                    <p class="project-description">A nostalgic yet modern take on the classic arcade game with vibrant visuals, power-ups, and engaging gameplay mechanics.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">JavaScript</span>
-                        <span class="tech-tag">Canvas API</span>
-                        <span class="tech-tag">Game Physics</span>
-                    </div>
-                    <a href="https://newgame-xi.vercel.app" target="_blank" class="project-btn">Play Demo</a>
-                </div>
-                <div class="project-images">
-                    <img src="brickbreaker.jpg" alt="BrickBreaker Project" class="project-image project-image-1">
-                    <img src="brickbreaker2.jpg" alt="BrickBreaker Project 2" class="project-image project-image-2">
-                </div>
+        <div class="project-overlay">
+            <div class="project-number">02</div>
+            <h2 class="project-title">LAYA Home</h2>
+            <p class="project-description">An elegant architect portfolio featuring stunning residential designs with smooth parallax scrolling and sophisticated typography.</p>
+            <div class="project-tech">
+                <span class="tech-tag">Next.js</span>
+                <span class="tech-tag">Framer Motion</span>
+                <span class="tech-tag">Tailwind CSS</span>
             </div>
+            <a href="https://laya-sooty.vercel.app" target="_blank" class="project-btn">See Project</a>
+        </div>
+    </section>
+
+    <!-- Project 3: BioCare -->
+    <section class="project-section" id="project3">
+        <div class="project-bg">
+            <img src="biocare.jpg" alt="BioCare Project" class="active">
+            <img src="biocare2.jpg" alt="BioCare Project 2">
+        </div>
+        <div class="project-overlay">
+            <div class="project-number">03</div>
+            <h2 class="project-title">BioCare</h2>
+            <p class="project-description">An innovative 3D health scan demo application featuring interactive body visualization and real-time health metrics display.</p>
+            <div class="project-tech">
+                <span class="tech-tag">Vue.js</span>
+                <span class="tech-tag">Three.js</span>
+                <span class="tech-tag">D3.js</span>
+                <span class="tech-tag">WebGL</span>
+            </div>
+            <a href="https://3-dscan.vercel.app" target="_blank" class="project-btn">See Project</a>
+        </div>
+    </section>
+
+    <!-- Project 4: BrickBreaker -->
+    <section class="project-section" id="project4">
+        <div class="project-bg">
+            <img src="brickbreaker.jpg" alt="BrickBreaker Project" class="active">
+            <img src="brickbreaker2.jpg" alt="BrickBreaker Project 2">
+        </div>
+        <div class="project-overlay">
+            <div class="project-number">04</div>
+            <h2 class="project-title">BrickBreaker</h2>
+            <p class="project-description">A nostalgic yet modern take on the classic arcade game with vibrant visuals, power-ups, and engaging gameplay mechanics.</p>
+            <div class="project-tech">
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">Canvas API</span>
+                <span class="tech-tag">Game Physics</span>
+            </div>
+            <a href="https://newgame-xi.vercel.app" target="_blank" class="project-btn">Play Game</a>
         </div>
     </section>
 
@@ -672,129 +664,94 @@
             .to('.hero-text h1 span', {
                 opacity: 1,
                 y: 0,
-                duration: 1,
-                stagger: 0.2,
+                duration: 0.8,
+                stagger: 0.15,
                 ease: 'power3.out'
             })
             .to('.hero-text p', {
                 opacity: 1,
                 y: 0,
-                duration: 1,
+                duration: 0.8,
                 ease: 'power3.out'
-            }, '-=0.5')
+            }, '-=0.4')
             .to('.profile-img', {
                 opacity: 1,
                 scale: 1,
-                duration: 1.2,
-                ease: 'elastic.out(1, 0.8)'
-            }, '-=0.8');
+                duration: 1,
+                ease: 'power3.out'
+            }, '-=0.6');
 
-        // Parallax for hero image
-        gsap.to('.profile-wrapper', {
-            yPercent: -20,
-            ease: 'none',
-            scrollTrigger: {
-                trigger: '.hero',
-                start: 'top top',
-                end: 'bottom top',
-                scrub: true
+        // Auto-switch images for each project
+        document.querySelectorAll('.project-section').forEach(section => {
+            const images = section.querySelectorAll('.project-bg img');
+            let currentIndex = 0;
+
+            // Image switching function
+            function switchImage() {
+                images[currentIndex].classList.remove('active');
+                currentIndex = (currentIndex + 1) % images.length;
+                images[currentIndex].classList.add('active');
             }
+
+            // Start switching after 2.5 seconds, then every 2.5 seconds
+            setInterval(switchImage, 2500);
         });
 
-        // Floating shapes parallax
-        gsap.utils.toArray('.shape').forEach((shape, i) => {
-            gsap.to(shape, {
-                yPercent: -50 * (i + 1),
-                ease: 'none',
+        // Project sections scroll animations
+        gsap.utils.toArray('.project-overlay').forEach(overlay => {
+            gsap.to(overlay, {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: 'power3.out',
                 scrollTrigger: {
-                    trigger: '.hero',
-                    start: 'top top',
-                    end: 'bottom top',
-                    scrub: true
+                    trigger: overlay,
+                    start: 'top 80%',
+                    once: true
                 }
             });
         });
 
-        // Project sections pinning and animations
-        gsap.utils.toArray('.project-section').forEach((section, i) => {
-            const images = section.querySelectorAll('.project-image');
-            const tl = gsap.timeline({
+        // Animate project elements on scroll
+        gsap.utils.toArray('.project-section').forEach(section => {
+            const timeline = gsap.timeline({
                 scrollTrigger: {
                     trigger: section,
-                    start: 'top top',
-                    end: '+=200%',
-                    pin: true,
-                    scrub: 1,
-                    anticipatePin: 1
+                    start: 'top 70%',
+                    once: true
                 }
             });
 
-            // Animate project info entrance
-            tl.from(section.querySelector('.project-number'), {
-                scale: 0,
-                opacity: 0,
-                duration: 1,
-                ease: 'power3.out'
-            })
-            .from(section.querySelector('.project-title'), {
-                x: -100,
-                opacity: 0,
-                duration: 1,
-                ease: 'power3.out'
-            }, '-=0.5')
-            .from(section.querySelector('.project-description'), {
-                x: -100,
-                opacity: 0,
-                duration: 1,
-                ease: 'power3.out'
-            }, '-=0.7')
-            .from(section.querySelectorAll('.tech-tag'), {
-                scale: 0,
-                opacity: 0,
-                duration: 0.5,
-                stagger: 0.1,
-                ease: 'back.out(1.7)'
-            }, '-=0.5')
-            .from(section.querySelector('.project-btn'), {
-                y: 30,
-                opacity: 0,
-                duration: 1,
-                ease: 'power3.out'
-            }, '-=0.3')
-            .from(images[0], {
-                scale: 0.8,
-                opacity: 0,
-                duration: 1,
-                ease: 'power3.out'
-            }, '-=1')
-            .to(images[0], {
-                opacity: 0,
-                scale: 1.1,
-                duration: 1
-            }, '+=0.5')
-            .to(images[1], {
-                opacity: 1,
-                scale: 1,
-                duration: 1
-            }, '-=0.5');
-
-            // Hover effect on project images
-            section.querySelectorAll('.project-image').forEach(img => {
-                img.addEventListener('mouseenter', () => {
-                    gsap.to(img, {
-                        scale: 1.05,
-                        duration: 0.3,
-                        ease: 'power2.out'
-                    });
-                });
-                img.addEventListener('mouseleave', () => {
-                    gsap.to(img, {
-                        scale: 1,
-                        duration: 0.3,
-                        ease: 'power2.out'
-                    });
-                });
-            });
+            timeline
+                .from(section.querySelector('.project-number'), {
+                    scale: 0,
+                    opacity: 0,
+                    duration: 0.6,
+                    ease: 'back.out(1.7)'
+                })
+                .from(section.querySelector('.project-title'), {
+                    y: 30,
+                    opacity: 0,
+                    duration: 0.6
+                }, '-=0.3')
+                .from(section.querySelector('.project-description'), {
+                    y: 20,
+                    opacity: 0,
+                    duration: 0.6
+                }, '-=0.3')
+                .from(section.querySelectorAll('.tech-tag'), {
+                    scale: 0,
+                    opacity: 0,
+                    duration: 0.4,
+                    stagger: 0.1,
+                    ease: 'back.out(1.7)'
+                }, '-=0.2')
+                .from(section.querySelector('.project-btn'), {
+                    scale: 0,
+                    opacity: 0,
+                    duration: 0.6,
+                    ease: 'back.out(1.7)'
+                }, '-=0.2');
         });
 
         // Contact section animations
@@ -806,28 +763,28 @@
                     .from('.contact h2', {
                         y: 50,
                         opacity: 0,
-                        duration: 1,
+                        duration: 0.8,
                         ease: 'power3.out'
                     })
-                    .from('.contact p', {
+                    .from('.contact > .contact-container > p', {
                         y: 30,
                         opacity: 0,
-                        duration: 1,
-                        ease: 'power3.out'
-                    }, '-=0.7')
-                    .from('.form-group', {
-                        y: 50,
-                        opacity: 0,
                         duration: 0.8,
-                        stagger: 0.2,
                         ease: 'power3.out'
                     }, '-=0.5')
+                    .from('.form-group', {
+                        y: 30,
+                        opacity: 0,
+                        duration: 0.6,
+                        stagger: 0.15,
+                        ease: 'power3.out'
+                    }, '-=0.4')
                     .from('.submit-btn', {
                         scale: 0,
                         opacity: 0,
-                        duration: 1,
+                        duration: 0.8,
                         ease: 'elastic.out(1, 0.8)'
-                    }, '-=0.3')
+                    }, '-=0.2')
                     .from('.social-icon', {
                         scale: 0,
                         rotation: -180,
@@ -835,7 +792,7 @@
                         duration: 0.5,
                         stagger: 0.1,
                         ease: 'back.out(1.7)'
-                    }, '-=0.5');
+                    }, '-=0.4');
             },
             once: true
         });
@@ -873,16 +830,25 @@
             }, 3000);
         });
 
-        // Add magnetic effect to buttons
+        // Parallax effect for hero shapes
+        gsap.utils.toArray('.shape').forEach((shape, i) => {
+            gsap.to(shape, {
+                yPercent: -30 * (i + 1),
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.hero',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: 1
+                }
+            });
+        });
+
+        // Add hover effect to buttons
         document.querySelectorAll('.project-btn, .submit-btn').forEach(btn => {
-            btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                
+            btn.addEventListener('mouseenter', () => {
                 gsap.to(btn, {
-                    x: x * 0.3,
-                    y: y * 0.3,
+                    scale: 1.05,
                     duration: 0.3,
                     ease: 'power2.out'
                 });
@@ -890,6 +856,30 @@
             
             btn.addEventListener('mouseleave', () => {
                 gsap.to(btn, {
+                    scale: 1,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+        });
+
+        // Add magnetic effect to project overlays
+        document.querySelectorAll('.project-overlay').forEach(overlay => {
+            overlay.addEventListener('mousemove', (e) => {
+                const rect = overlay.getBoundingClientRect();
+                const x = (e.clientX - rect.left - rect.width / 2) * 0.02;
+                const y = (e.clientY - rect.top - rect.height / 2) * 0.02;
+                
+                gsap.to(overlay, {
+                    x: x,
+                    y: y,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+            
+            overlay.addEventListener('mouseleave', () => {
+                gsap.to(overlay, {
                     x: 0,
                     y: 0,
                     duration: 0.3,
@@ -898,25 +888,7 @@
             });
         });
 
-        // Smooth reveal for elements as they come into view
-        gsap.utils.toArray('.tech-tag').forEach(tag => {
-            gsap.set(tag, { opacity: 0, scale: 0.8 });
-            ScrollTrigger.create({
-                trigger: tag,
-                start: 'top 90%',
-                onEnter: () => {
-                    gsap.to(tag, {
-                        opacity: 1,
-                        scale: 1,
-                        duration: 0.5,
-                        ease: 'back.out(1.7)'
-                    });
-                },
-                once: true
-            });
-        });
-
-        // Add cursor follower for enhanced interactivity
+        // Custom cursor
         const cursor = document.createElement('div');
         cursor.style.cssText = `
             position: fixed;
@@ -947,7 +919,7 @@
             });
         });
 
-        // Performance optimization: Disable animations on low-end devices
+        // Performance optimization
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
             gsap.globalTimeline.timeScale(10);
         }
