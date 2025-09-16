@@ -4,403 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adam Slamen - Web Designer & Front-End Developer</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #FF6B6B;
-            --secondary: #4ECDC4;
-            --accent: #FFE66D;
-            --dark: #000000;
-            --light: #FFFFFF;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            color: var(--light);
-            overflow-x: hidden;
-            background: #000;
-        }
-
-        /* Header */
-        .header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 50px;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .header.scrolled {
-            padding: 15px 50px;
-            background: rgba(0, 0, 0, 0.9);
-        }
-
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--light);
-            text-decoration: none;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 25px;
-            background: rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            transform: translateY(-2px);
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 100px 50px 50px;
-            position: relative;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .hero-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            max-width: 1400px;
-            margin: 0 auto;
-            width: 100%;
-            align-items: center;
-        }
-
-        .hero-text h1 {
-            font-size: clamp(3rem, 8vw, 5rem);
-            font-weight: 900;
-            line-height: 1.1;
-            color: var(--light);
-            margin-bottom: 20px;
-        }
-
-        .hero-text h1 span {
-            display: block;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .hero-text .highlight {
-            background: linear-gradient(135deg, var(--accent), var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-text p {
-            font-size: 1.5rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-top: 20px;
-            opacity: 0;
-        }
-
-        .profile-wrapper {
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .profile-img {
-            width: 100%;
-            height: auto;
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            transform: scale(0.8);
-        }
-
-        /* Projects - Full Screen with Left Overlay */
-        .project-section {
-            min-height: 100vh;
-            position: relative;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .project-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        .project-bg img {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            transition: opacity 1.5s ease;
-        }
-
-        .project-bg img.active {
-            opacity: 1;
-        }
-
-        /* LEFT SIDE OVERLAY - NARROWER */
-        .project-overlay {
-            position: relative;
-            z-index: 2;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
-            padding: 60px 40px;
-            max-width: 450px;
-            width: 100%;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            margin-left: 0;
-            opacity: 0;
-            transform: translateX(-50px);
-        }
-
-        .project-number {
-            font-size: 100px;
-            font-weight: 900;
-            line-height: 1;
-            opacity: 0.2;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .project-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin: 20px 0;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .project-description {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.85);
-            margin: 20px 0;
-            line-height: 1.7;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 30px 0;
-        }
-
-        .tech-tag {
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            font-size: 0.85rem;
-            color: var(--light);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        /* PROJECT BUTTON - HIGHLY VISIBLE */
-        .project-btn {
-            display: inline-block;
-            padding: 18px 60px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.3rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.5);
-            margin-top: 30px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border: 2px solid transparent;
-        }
-
-        .project-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 20px 50px rgba(255, 107, 107, 0.7);
-            border: 2px solid var(--accent);
-        }
-
-        /* Contact Section */
-        .contact {
-            min-height: 100vh;
-            padding: 100px 50px;
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .contact-container {
-            max-width: 800px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .contact h2 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .contact p {
-            color: var(--dark);
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-        }
-
-        .contact-form {
-            margin-top: 40px;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 1.1rem;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid transparent;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--secondary);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(78, 205, 196, 0.2);
-        }
-
-        /* CONTACT SUBMIT BUTTON - HIGHLY VISIBLE */
-        .submit-btn {
-            padding: 18px 60px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.3rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.5);
-            margin-top: 30px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 20px 50px rgba(255, 107, 107, 0.7);
-        }
-
-        .social-icons {
-            margin-top: 50px;
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-        }
-
-        .social-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            color: var(--dark);
-            transition: all 0.3s ease;
-        }
-
-        .social-icon:hover {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            transform: translateY(-5px) rotate(360deg);
-        }
-
-        @media (max-width: 768px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-            }
-            .project-overlay {
-                max-width: 100%;
-                min-height: auto;
-                padding: 40px 20px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header" id="header">
-        <nav class="nav">
-            <div class="logo">Adam Slamen</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#project1">NOVA</a></li>
-                <li><a href="#project2">LAYA</a></li>
-                <li><a href="#project3">BioCare</a></li>
-                <li><a href="#project4">BrickBreaker</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!-- Dot Navigation (Right Side) -->
+    <nav class="dot-nav">
+        <a href="#home" class="dot active" data-section="home"></a>
+        <a href="#project1" class="dot" data-section="project1"></a>
+        <a href="#project2" class="dot" data-section="project2"></a>
+        <a href="#project3" class="dot" data-section="project3"></a>
+        <a href="#project4" class="dot" data-section="project4"></a>
+        <a href="#contact" class="dot" data-section="contact"></a>
+    </nav>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        
         <div class="hero-content">
             <div class="hero-text">
                 <h1>
@@ -421,79 +43,87 @@
 
     <!-- Project 1: NOVA -->
     <section class="project-section" id="project1">
-        <div class="project-bg">
-            <img src="nova.jpg" alt="NOVA Project" class="active">
-            <img src="nova2.jpg" alt="NOVA Project 2">
+        <div class="project-images-container">
+            <img src="nova.jpg" alt="NOVA Project 1" class="project-img img-1">
+            <img src="nova2.jpg" alt="NOVA Project 2" class="project-img img-2">
         </div>
         <div class="project-overlay">
-            <div class="project-number">01</div>
-            <h2 class="project-title">NOVA</h2>
-            <p class="project-description">A cutting-edge smartphone promo website showcasing the latest in mobile technology with immersive 3D visuals and smooth animations.</p>
-            <div class="project-tech">
-                <span class="tech-tag">React</span>
-                <span class="tech-tag">Three.js</span>
-                <span class="tech-tag">GSAP</span>
-                <span class="tech-tag">WebGL</span>
+            <div class="project-content">
+                <span class="project-number">01</span>
+                <h2 class="project-title">NOVA</h2>
+                <p class="project-description">A cutting-edge smartphone promo website showcasing the latest in mobile technology with immersive 3D visuals and smooth animations.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">Three.js</span>
+                    <span class="tech-tag">GSAP</span>
+                    <span class="tech-tag">WebGL</span>
+                </div>
+                <a href="https://nova-chi-blush.vercel.app" target="_blank" class="project-button">VIEW PROJECT</a>
             </div>
-            <a href="https://nova-chi-blush.vercel.app" target="_blank" class="project-btn">SEE PROJECT</a>
         </div>
     </section>
 
     <!-- Project 2: LAYA Home -->
     <section class="project-section" id="project2">
-        <div class="project-bg">
-            <img src="laya.jpg" alt="LAYA Project" class="active">
-            <img src="laya2.jpg" alt="LAYA Project 2">
+        <div class="project-images-container">
+            <img src="laya.jpg" alt="LAYA Project 1" class="project-img img-1">
+            <img src="laya2.jpg" alt="LAYA Project 2" class="project-img img-2">
         </div>
         <div class="project-overlay">
-            <div class="project-number">02</div>
-            <h2 class="project-title">LAYA Home</h2>
-            <p class="project-description">An elegant architect portfolio featuring stunning residential designs with smooth parallax scrolling and sophisticated typography.</p>
-            <div class="project-tech">
-                <span class="tech-tag">Next.js</span>
-                <span class="tech-tag">Framer Motion</span>
-                <span class="tech-tag">Tailwind CSS</span>
+            <div class="project-content">
+                <span class="project-number">02</span>
+                <h2 class="project-title">LAYA Home</h2>
+                <p class="project-description">An elegant architect portfolio featuring stunning residential designs with smooth parallax scrolling and sophisticated typography.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Next.js</span>
+                    <span class="tech-tag">Framer Motion</span>
+                    <span class="tech-tag">Tailwind CSS</span>
+                </div>
+                <a href="https://laya-sooty.vercel.app" target="_blank" class="project-button">VIEW PROJECT</a>
             </div>
-            <a href="https://laya-sooty.vercel.app" target="_blank" class="project-btn">SEE PROJECT</a>
         </div>
     </section>
 
     <!-- Project 3: BioCare -->
     <section class="project-section" id="project3">
-        <div class="project-bg">
-            <img src="biocare.jpg" alt="BioCare Project" class="active">
-            <img src="biocare2.jpg" alt="BioCare Project 2">
+        <div class="project-images-container">
+            <img src="biocare.jpg" alt="BioCare Project 1" class="project-img img-1">
+            <img src="biocare2.jpg" alt="BioCare Project 2" class="project-img img-2">
         </div>
         <div class="project-overlay">
-            <div class="project-number">03</div>
-            <h2 class="project-title">BioCare</h2>
-            <p class="project-description">An innovative 3D health scan demo application featuring interactive body visualization and real-time health metrics display.</p>
-            <div class="project-tech">
-                <span class="tech-tag">Vue.js</span>
-                <span class="tech-tag">Three.js</span>
-                <span class="tech-tag">D3.js</span>
-                <span class="tech-tag">WebGL</span>
+            <div class="project-content">
+                <span class="project-number">03</span>
+                <h2 class="project-title">BioCare</h2>
+                <p class="project-description">An innovative 3D health scan demo application featuring interactive body visualization and real-time health metrics display.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Vue.js</span>
+                    <span class="tech-tag">Three.js</span>
+                    <span class="tech-tag">D3.js</span>
+                    <span class="tech-tag">WebGL</span>
+                </div>
+                <a href="https://3-dscan.vercel.app" target="_blank" class="project-button">VIEW PROJECT</a>
             </div>
-            <a href="https://3-dscan.vercel.app" target="_blank" class="project-btn">SEE PROJECT</a>
         </div>
     </section>
 
     <!-- Project 4: BrickBreaker -->
     <section class="project-section" id="project4">
-        <div class="project-bg">
-            <img src="brickbreaker.jpg" alt="BrickBreaker Project" class="active">
-            <img src="brickbreaker2.jpg" alt="BrickBreaker Project 2">
+        <div class="project-images-container">
+            <img src="brickbreaker.jpg" alt="BrickBreaker Project 1" class="project-img img-1">
+            <img src="brickbreaker2.jpg" alt="BrickBreaker Project 2" class="project-img img-2">
         </div>
         <div class="project-overlay">
-            <div class="project-number">04</div>
-            <h2 class="project-title">BrickBreaker</h2>
-            <p class="project-description">A nostalgic yet modern take on the classic arcade game with vibrant visuals, power-ups, and engaging gameplay mechanics.</p>
-            <div class="project-tech">
-                <span class="tech-tag">JavaScript</span>
-                <span class="tech-tag">Canvas API</span>
-                <span class="tech-tag">Game Physics</span>
+            <div class="project-content">
+                <span class="project-number">04</span>
+                <h2 class="project-title">BrickBreaker</h2>
+                <p class="project-description">A nostalgic yet modern take on the classic arcade game with vibrant visuals, power-ups, and engaging gameplay mechanics.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">Canvas API</span>
+                    <span class="tech-tag">Game Physics</span>
+                </div>
+                <a href="https://newgame-xi.vercel.app" target="_blank" class="project-button">PLAY GAME</a>
             </div>
-            <a href="https://newgame-xi.vercel.app" target="_blank" class="project-btn">PLAY GAME</a>
         </div>
     </section>
 
@@ -516,7 +146,7 @@
                     <label for="message">Message</label>
                     <textarea id="message" name="message" rows="5" required></textarea>
                 </div>
-                <button type="submit" class="submit-btn">SEND MESSAGE</button>
+                <button type="submit" class="form-submit-button">SEND MESSAGE</button>
             </form>
             
             <div class="social-icons">
@@ -539,7 +169,7 @@
         </div>
     </section>
 
-    <!-- Load JavaScript -->
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="script.js"></script>
