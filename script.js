@@ -1,28 +1,45 @@
-// Register ScrollTrigger
+// Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
-// Header scroll effect
-window.addEventListener('scroll', () => {
-    const header = document.getElementById('header');
-    if (window.scrollY > 100) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
-    }
-});
+// Dot Navigation - Update active state on scroll
+const dots = document.querySelectorAll('.dot');
+const sections = document.querySelectorAll('section');
 
-// Smooth scroll for navigation
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+// Update active dot based on scroll position
+function updateActiveDot() {
+    let current = '';
+    
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (scrollY >= (sectionTop - sectionHeight / 3)) {
+            current = section.getAttribute('id');
+        }
+    });
+    
+    dots.forEach(dot => {
+        dot.classList.remove('active');
+        if (dot.getAttribute('data-section') === current) {
+            dot.classList.add('active');
+        }
+    });
+}
+
+window.addEventListener('scroll', updateActiveDot);
+
+// Smooth scroll for dot navigation
+dots.forEach(dot => {
+    dot.addEventListener('click', function(e) {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const targetId = this.getAttribute('data-section');
+        const target = document.getElementById(targetId);
         if (target) {
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     });
 });
 
-// Hero animations
+// Hero Section Animations
 gsap.timeline()
     .to('.hero-text h1 span', {
         opacity: 1,
@@ -44,79 +61,82 @@ gsap.timeline()
         ease: 'power3.out'
     }, '-=0.6');
 
-// Auto-switch images for each project (every 2.5 seconds)
-document.querySelectorAll('.project-section').forEach(section => {
-    const images = section.querySelectorAll('.project-bg img');
-    let currentIndex = 0;
-
-    // Image switching function
-    function switchImage() {
-        images[currentIndex].classList.remove('active');
-        currentIndex = (currentIndex + 1) % images.length;
-        images[currentIndex].classList.add('active');
-    }
-
-    // Start switching every 2.5 seconds
-    setInterval(switchImage, 2500);
-});
-
-// Project sections animations - all content appears at once on scroll
-gsap.utils.toArray('.project-overlay').forEach(overlay => {
-    // Initial animation when section comes into view
-    gsap.to(overlay, {
-        opacity: 1,
-        x: 0,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-            trigger: overlay,
-            start: 'top 80%',
-            once: true
-        }
-    });
+// PROJECT SECTIONS - NEW ANIMATION SEQUENCE
+// First image -> Second image -> Overlay appears
+document.querySelectorAll('.project-section').forEach((section, index) => {
+    const img1 = section.querySelector('.img-1');
+    const img2 = section.querySelector('.img-2');
+    const overlay = section.querySelector('.project-overlay');
     
-    // Animate all elements inside at once
-    ScrollTrigger.create({
-        trigger: overlay,
-        start: 'top 80%',
-        once: true,
-        onEnter: () => {
-            const tl = gsap.timeline();
-            
-            tl.from(overlay.querySelector('.project-number'), {
-                scale: 0,
-                opacity: 0,
-                duration: 0.6,
-                ease: 'back.out(1.7)'
-            })
-            .from(overlay.querySelector('.project-title'), {
-                y: 30,
-                opacity: 0,
-                duration: 0.6
-            }, '-=0.4')
-            .from(overlay.querySelector('.project-description'), {
-                y: 20,
-                opacity: 0,
-                duration: 0.6
-            }, '-=0.4')
-            .from(overlay.querySelectorAll('.tech-tag'), {
-                scale: 0,
-                opacity: 0,
-                duration: 0.4,
-                stagger: 0.05,
-                ease: 'back.out(1.7)'
-            }, '-=0.3')
-            .from(overlay.querySelector('.project-btn'), {
-                scale: 0,
-                opacity: 0,
-                duration: 0.6,
-                ease: 'elastic.out(1, 0.8)'
-            }, '-=0.2');
+    // Create timeline for each project
+    const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: section,
+            start: 'top 70%',
+            end: 'center center',
+            scrub: 1,
+            onEnter: () => {
+                // Start the sequence when section comes into view
+                gsap.timeline()
+                    // Show first image
+                    .to(img1, {
+                        opacity: 1,
+                        duration: 0.8,
+                        ease: 'power2.out'
+                    })
+                    // Show second image after delay
+                    .to(img2, {
+                        opacity: 1,
+                        duration: 0.8,
+                        ease: 'power2.out'
+                    }, '+=0.5')
+                    // Fade first image slightly
+                    .to(img1, {
+                        opacity: 0.3,
+                        duration: 0.5
+                    }, '-=0.3')
+                    // Show overlay with all content
+                    .to(overlay, {
+                        opacity: 1,
+                        duration: 0.8,
+                        ease: 'power3.out'
+                    }, '-=0.2')
+                    // Animate overlay content
+                    .from(overlay.querySelector('.project-number'), {
+                        scale: 0,
+                        opacity: 0,
+                        duration: 0.5,
+                        ease: 'back.out(1.7)'
+                    }, '-=0.4')
+                    .from(overlay.querySelector('.project-title'), {
+                        x: -30,
+                        opacity: 0,
+                        duration: 0.5
+                    }, '-=0.3')
+                    .from(overlay.querySelector('.project-description'), {
+                        x: -20,
+                        opacity: 0,
+                        duration: 0.5
+                    }, '-=0.3')
+                    .from(overlay.querySelectorAll('.tech-tag'), {
+                        scale: 0,
+                        opacity: 0,
+                        duration: 0.3,
+                        stagger: 0.05,
+                        ease: 'back.out(1.7)'
+                    }, '-=0.2')
+                    .from(overlay.querySelector('.project-button'), {
+                        scale: 0,
+                        opacity: 0,
+                        duration: 0.6,
+                        ease: 'elastic.out(1, 0.5)'
+                    }, '-=0.1');
+            }
         }
     });
 });
 
-// Contact section animations
+// Contact Section Animations
 ScrollTrigger.create({
     trigger: '.contact',
     start: 'top 80%',
@@ -129,7 +149,7 @@ ScrollTrigger.create({
                 duration: 0.8,
                 ease: 'power3.out'
             })
-            .from('.contact > .contact-container > p', {
+            .from('.contact-container > p', {
                 y: 30,
                 opacity: 0,
                 duration: 0.8,
@@ -142,11 +162,11 @@ ScrollTrigger.create({
                 stagger: 0.15,
                 ease: 'power3.out'
             }, '-=0.4')
-            .from('.submit-btn', {
+            .from('.form-submit-button', {
                 scale: 0,
                 opacity: 0,
                 duration: 0.8,
-                ease: 'elastic.out(1, 0.8)'
+                ease: 'elastic.out(1, 0.5)'
             }, '-=0.2')
             .from('.social-icon', {
                 scale: 0,
@@ -159,43 +179,46 @@ ScrollTrigger.create({
     }
 });
 
-// Form submission handler
-document.getElementById('contactForm').addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const formData = {
-        name: e.target.name.value,
-        email: e.target.email.value,
-        message: e.target.message.value
-    };
-    
-    console.log('Form submitted:', formData);
-    
-    // Animate button on submit
-    const btn = e.target.querySelector('.submit-btn');
-    gsap.timeline()
-        .to(btn, {
-            scale: 0.95,
-            duration: 0.1
-        })
-        .to(btn, {
-            scale: 1.1,
-            duration: 0.3,
-            ease: 'elastic.out(1, 0.5)'
-        })
-        .set(btn, {
-            innerHTML: 'MESSAGE SENT! ✨'
-        });
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-        e.target.reset();
-        btn.innerHTML = 'SEND MESSAGE';
-    }, 3000);
-});
+// Form Submission Handler
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = {
+            name: e.target.name.value,
+            email: e.target.email.value,
+            message: e.target.message.value
+        };
+        
+        console.log('Form submitted:', formData);
+        
+        // Animate button on submit
+        const btn = e.target.querySelector('.form-submit-button');
+        gsap.timeline()
+            .to(btn, {
+                scale: 0.95,
+                duration: 0.1
+            })
+            .to(btn, {
+                scale: 1.05,
+                duration: 0.3,
+                ease: 'elastic.out(1, 0.5)'
+            })
+            .call(() => {
+                btn.textContent = 'MESSAGE SENT! ✨';
+            });
+        
+        // Reset form after 3 seconds
+        setTimeout(() => {
+            e.target.reset();
+            btn.textContent = 'SEND MESSAGE';
+        }, 3000);
+    });
+}
 
-// Enhanced hover effects for buttons
-document.querySelectorAll('.project-btn, .submit-btn').forEach(btn => {
+// Button Hover Effects
+document.querySelectorAll('.project-button, .form-submit-button').forEach(btn => {
     btn.addEventListener('mouseenter', () => {
         gsap.to(btn, {
             scale: 1.05,
@@ -213,32 +236,21 @@ document.querySelectorAll('.project-btn, .submit-btn').forEach(btn => {
     });
 });
 
-// Add subtle parallax to project overlays
-document.querySelectorAll('.project-overlay').forEach(overlay => {
-    overlay.addEventListener('mousemove', (e) => {
-        const rect = overlay.getBoundingClientRect();
-        const x = (e.clientX - rect.left - rect.width / 2) * 0.01;
-        const y = (e.clientY - rect.top - rect.height / 2) * 0.01;
-        
-        gsap.to(overlay, {
-            x: x,
-            y: y,
-            duration: 0.3,
-            ease: 'power2.out'
-        });
-    });
-    
-    overlay.addEventListener('mouseleave', () => {
-        gsap.to(overlay, {
-            x: 0,
-            y: 0,
-            duration: 0.3,
-            ease: 'power2.out'
-        });
+// Parallax effect for hero shapes
+gsap.utils.toArray('.shape').forEach((shape, i) => {
+    gsap.to(shape, {
+        yPercent: -30 * (i + 1),
+        ease: 'none',
+        scrollTrigger: {
+            trigger: '.hero',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1
+        }
     });
 });
 
-// Custom cursor effect
+// Custom Cursor
 const cursor = document.createElement('div');
 cursor.style.cssText = `
     position: fixed;
@@ -259,7 +271,7 @@ document.addEventListener('mousemove', (e) => {
 });
 
 // Cursor grows on interactive elements
-document.querySelectorAll('a, button').forEach(el => {
+document.querySelectorAll('a, button, .dot').forEach(el => {
     el.addEventListener('mouseenter', () => {
         cursor.style.transform = 'scale(2)';
         cursor.style.background = 'rgba(78, 205, 196, 0.1)';
@@ -271,12 +283,12 @@ document.querySelectorAll('a, button').forEach(el => {
     });
 });
 
-// Performance optimization for reduced motion preference
+// Performance optimization
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     gsap.globalTimeline.timeScale(10);
 }
 
-// Refresh ScrollTrigger on window resize
+// Refresh ScrollTrigger on resize
 let resizeTimer;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
@@ -285,7 +297,11 @@ window.addEventListener('resize', () => {
     }, 250);
 });
 
-// Log when page is ready
-console.log('Portfolio site loaded successfully!');
-console.log('All buttons and forms are functional.');
-console.log('Projects have auto-switching images every 2.5 seconds.');
+// Debug - Verify all buttons are present
+console.log('=== PORTFOLIO LOADED ===');
+console.log('Project buttons found:', document.querySelectorAll('.project-button').length);
+console.log('Submit button found:', document.querySelector('.form-submit-button') ? 'YES' : 'NO');
+console.log('All project links:');
+document.querySelectorAll('.project-button').forEach((btn, i) => {
+    console.log(`Project ${i+1}: ${btn.href}`);
+});
