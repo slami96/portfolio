@@ -68,7 +68,7 @@ body {
     transform: scale(1.3);
 }
 
-/* Hero Section */
+/* Hero Section - Enhanced */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -87,6 +87,8 @@ body {
     margin: 0 auto;
     width: 100%;
     align-items: center;
+    z-index: 10;
+    position: relative;
 }
 
 .hero-text h1 {
@@ -130,114 +132,257 @@ body {
     transform: scale(0.8);
 }
 
-/* Enhanced floating shapes with more creative animations */
-.shape {
+/* Enhanced Dynamic Floating Elements */
+.floating-elements {
     position: absolute;
-    opacity: 0.08;
-    animation: creativeFloat 12s ease-in-out infinite;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.floating-element {
+    position: absolute;
+    opacity: 0.12;
     will-change: transform;
 }
 
-.shape-1 {
-    width: 250px;
-    height: 250px;
-    background: var(--accent);
+/* Gradient Orbs */
+.orb-1 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
     border-radius: 50%;
     top: 10%;
-    left: -5%;
-    animation: creativeFloat1 15s ease-in-out infinite;
+    left: -10%;
+    animation: orbFloat1 12s ease-in-out infinite;
+    filter: blur(1px);
 }
 
-.shape-2 {
-    width: 180px;
-    height: 180px;
-    background: var(--primary);
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    top: 60%;
+.orb-2 {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+    border-radius: 50%;
+    top: 70%;
     right: -5%;
-    animation: creativeFloat2 18s ease-in-out infinite;
+    animation: orbFloat2 15s ease-in-out infinite;
+    animation-delay: 2s;
+    filter: blur(1px);
+}
+
+.orb-3 {
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+    border-radius: 50%;
+    bottom: 20%;
+    left: 20%;
+    animation: orbFloat3 18s ease-in-out infinite;
+    animation-delay: 4s;
+    filter: blur(1px);
+}
+
+/* Geometric Shapes */
+.geo-1 {
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(45deg, var(--accent), var(--primary));
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    top: 30%;
+    right: 15%;
+    animation: geoFloat1 20s linear infinite;
+    opacity: 0.08;
+}
+
+.geo-2 {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, var(--secondary), var(--accent));
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    bottom: 40%;
+    right: 25%;
+    animation: geoFloat2 16s linear infinite;
+    animation-delay: 3s;
+    opacity: 0.1;
+}
+
+.geo-3 {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    top: 60%;
+    left: 10%;
+    animation: geoFloat3 22s linear infinite;
+    animation-delay: 1s;
+    opacity: 0.09;
+}
+
+/* Animated Lines */
+.animated-line {
+    position: absolute;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+    opacity: 0.3;
+}
+
+.line-1 {
+    width: 200px;
+    top: 25%;
+    left: -200px;
+    animation: lineMove1 8s linear infinite;
+}
+
+.line-2 {
+    width: 150px;
+    top: 75%;
+    right: -150px;
+    animation: lineMove2 10s linear infinite;
     animation-delay: 2s;
 }
 
-.shape-3 {
-    width: 120px;
-    height: 120px;
-    background: var(--secondary);
-    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-    bottom: 10%;
-    left: 10%;
-    animation: creativeFloat3 20s ease-in-out infinite;
-    animation-delay: 4s;
+/* Floating Particles */
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 50%;
+    opacity: 0.6;
 }
 
-/* Creative floating animations */
-@keyframes creativeFloat1 {
-    0% { 
-        transform: translateY(0) translateX(0) rotate(0deg) scale(1); 
-        border-radius: 50%;
-    }
-    25% { 
-        transform: translateY(-40px) translateX(20px) rotate(90deg) scale(1.1); 
-        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-    }
-    50% { 
-        transform: translateY(-80px) translateX(0) rotate(180deg) scale(0.9); 
-        border-radius: 30% 60% 70% 40% / 50% 60% 40% 50%;
-    }
-    75% { 
-        transform: translateY(-40px) translateX(-20px) rotate(270deg) scale(1.05); 
-        border-radius: 40% 60% 60% 40% / 70% 30% 70% 30%;
-    }
-    100% { 
-        transform: translateY(0) translateX(0) rotate(360deg) scale(1); 
-        border-radius: 50%;
-    }
+.particle-1 { top: 20%; left: 15%; animation: particleFloat 6s ease-in-out infinite; }
+.particle-2 { top: 40%; right: 20%; animation: particleFloat 8s ease-in-out infinite; animation-delay: 1s; }
+.particle-3 { bottom: 30%; left: 25%; animation: particleFloat 7s ease-in-out infinite; animation-delay: 2s; }
+.particle-4 { bottom: 60%; right: 15%; animation: particleFloat 9s ease-in-out infinite; animation-delay: 3s; }
+
+/* Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 3s forwards;
 }
 
-@keyframes creativeFloat2 {
-    0% { 
-        transform: translateY(0) translateX(0) rotate(0deg) scale(1); 
-        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    }
-    33% { 
-        transform: translateY(-30px) translateX(-25px) rotate(120deg) scale(1.15); 
-        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-    }
-    66% { 
-        transform: translateY(-60px) translateX(15px) rotate(240deg) scale(0.85); 
-        border-radius: 70% 30% 60% 40% / 40% 60% 30% 70%;
-    }
-    100% { 
-        transform: translateY(0) translateX(0) rotate(360deg) scale(1); 
-        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    }
+.scroll-text {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
 }
 
-@keyframes creativeFloat3 {
-    0% { 
-        transform: translateY(0) translateX(0) rotate(0deg) scale(1); 
-        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-    }
-    20% { 
-        transform: translateY(-25px) translateX(30px) rotate(72deg) scale(1.2); 
-        clip-path: polygon(50% 0%, 90% 20%, 80% 80%, 20% 90%, 10% 20%);
-    }
-    40% { 
-        transform: translateY(-50px) translateX(-10px) rotate(144deg) scale(0.8); 
-        clip-path: polygon(30% 0%, 100% 30%, 70% 100%, 0% 70%);
-    }
-    60% { 
-        transform: translateY(-35px) translateX(-35px) rotate(216deg) scale(1.1); 
-        clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-    }
-    80% { 
-        transform: translateY(-15px) translateX(20px) rotate(288deg) scale(0.9); 
-        clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%);
-    }
-    100% { 
-        transform: translateY(0) translateX(0) rotate(360deg) scale(1); 
-        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-    }
+.scroll-arrow {
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--secondary), transparent);
+    position: relative;
+    animation: scrollPulse 2s ease-in-out infinite;
+}
+
+.scroll-arrow::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 8px solid var(--secondary);
+    animation: arrowBounce 2s ease-in-out infinite;
+}
+
+/* Keyframe Animations */
+@keyframes orbFloat1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(50px, -30px) scale(1.1); }
+    50% { transform: translate(-20px, -60px) scale(0.9); }
+    75% { transform: translate(-40px, -20px) scale(1.05); }
+}
+
+@keyframes orbFloat2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-30px, -40px) scale(1.2); }
+    66% { transform: translate(20px, -80px) scale(0.8); }
+}
+
+@keyframes orbFloat3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    20% { transform: translate(40px, -20px) scale(1.15); }
+    40% { transform: translate(-15px, -50px) scale(0.85); }
+    60% { transform: translate(-35px, -30px) scale(1.1); }
+    80% { transform: translate(25px, -10px) scale(0.95); }
+}
+
+@keyframes geoFloat1 {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(-30px, 40px) rotate(90deg); }
+    50% { transform: translate(60px, 20px) rotate(180deg); }
+    75% { transform: translate(20px, -30px) rotate(270deg); }
+    100% { transform: translate(0, 0) rotate(360deg); }
+}
+
+@keyframes geoFloat2 {
+    0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+    30% { transform: translate(40px, -20px) rotate(108deg) scale(1.2); }
+    60% { transform: translate(-20px, 50px) rotate(216deg) scale(0.8); }
+    100% { transform: translate(0, 0) rotate(360deg) scale(1); }
+}
+
+@keyframes geoFloat3 {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    20% { transform: translate(-25px, -35px) rotate(72deg); }
+    40% { transform: translate(45px, -10px) rotate(144deg); }
+    60% { transform: translate(10px, 40px) rotate(216deg); }
+    80% { transform: translate(-35px, 15px) rotate(288deg); }
+    100% { transform: translate(0, 0) rotate(360deg); }
+}
+
+@keyframes lineMove1 {
+    0% { left: -200px; opacity: 0; }
+    10% { opacity: 0.3; }
+    90% { opacity: 0.3; }
+    100% { left: 100%; opacity: 0; }
+}
+
+@keyframes lineMove2 {
+    0% { right: -150px; opacity: 0; }
+    10% { opacity: 0.3; }
+    90% { opacity: 0.3; }
+    100% { right: 100%; opacity: 0; }
+}
+
+@keyframes particleFloat {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
+    50% { transform: translateY(-20px) scale(1.2); opacity: 1; }
+}
+
+@keyframes scrollPulse {
+    0%, 100% { opacity: 0.6; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.1); }
+}
+
+@keyframes arrowBounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(5px); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
 /* Project Sections */
@@ -262,7 +407,8 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.7;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
 }
 
 .project-img.img-1 {
@@ -313,6 +459,7 @@ body {
     color: var(--secondary);
     display: block;
     margin-bottom: 20px;
+    transform: scale(0);
 }
 
 .project-title {
@@ -322,6 +469,8 @@ body {
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    opacity: 0;
+    transform: translateY(30px);
 }
 
 /* Fix for BrickBreaker title - smaller font size */
@@ -334,6 +483,8 @@ body {
     color: rgba(255, 255, 255, 0.8);
     line-height: 1.6;
     margin-bottom: 25px;
+    opacity: 0;
+    transform: translateY(20px);
 }
 
 .project-tech {
@@ -350,6 +501,8 @@ body {
     border-radius: 20px;
     font-size: 0.8rem;
     color: var(--secondary);
+    opacity: 0;
+    transform: scale(0);
 }
 
 /* Project Button */
@@ -369,9 +522,8 @@ body {
     cursor: pointer;
     position: relative;
     z-index: 100;
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
+    opacity: 0;
+    transform: scale(0);
 }
 
 .project-button:hover {
@@ -379,7 +531,7 @@ body {
     box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6);
 }
 
-/* Enhanced Contact Section - Matching hero design */
+/* Enhanced Contact Section */
 .contact {
     min-height: 100vh;
     padding: 80px 50px;
@@ -391,147 +543,148 @@ body {
     overflow: hidden;
 }
 
-/* Contact floating shapes - similar to hero but different positions */
-.contact::before,
-.contact::after {
-    content: '';
+/* Contact Floating Elements */
+.contact-floating-elements {
     position: absolute;
-    opacity: 0.06;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.contact-orb {
+    position: absolute;
+    opacity: 0.1;
     will-change: transform;
-}
-
-.contact::before {
-    width: 300px;
-    height: 300px;
-    background: var(--accent);
     border-radius: 50%;
-    top: -10%;
-    right: -8%;
-    animation: contactFloat1 16s ease-in-out infinite;
 }
 
-.contact::after {
-    width: 200px;
-    height: 200px;
-    background: var(--secondary);
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+.contact-orb-1 {
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    top: -5%;
+    right: -8%;
+    animation: contactOrb1 14s ease-in-out infinite;
+    filter: blur(2px);
+}
+
+.contact-orb-2 {
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
     bottom: -5%;
-    left: -8%;
-    animation: contactFloat2 14s ease-in-out infinite;
+    left: -5%;
+    animation: contactOrb2 16s ease-in-out infinite;
+    animation-delay: 2s;
+    filter: blur(1px);
+}
+
+.contact-orb-3 {
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+    top: 40%;
+    left: 5%;
+    animation: contactOrb3 18s ease-in-out infinite;
+    animation-delay: 4s;
+    filter: blur(1px);
+}
+
+/* Contact Geometric Shapes */
+.contact-geo {
+    position: absolute;
+    opacity: 0.08;
+}
+
+.contact-geo-1 {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(45deg, var(--secondary), var(--accent));
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    top: 20%;
+    left: 10%;
+    animation: contactGeo1 20s linear infinite;
+}
+
+.contact-geo-2 {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    bottom: 25%;
+    right: 15%;
+    animation: contactGeo2 22s linear infinite;
     animation-delay: 3s;
 }
 
-/* Additional contact shapes */
-.contact-container::before,
-.contact-container::after {
-    content: '';
+/* Contact Lines */
+.contact-line {
     position: absolute;
-    opacity: 0.04;
-    z-index: 1;
-    will-change: transform;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.2;
 }
 
-.contact-container::before {
-    width: 150px;
-    height: 150px;
-    background: var(--primary);
-    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-    top: 20%;
-    left: -5%;
-    animation: contactFloat3 18s ease-in-out infinite;
-    animation-delay: 1s;
+.contact-line-1 {
+    width: 180px;
+    top: 30%;
+    left: -180px;
+    animation: contactLine1 10s linear infinite;
 }
 
-.contact-container::after {
+.contact-line-2 {
     width: 120px;
-    height: 120px;
-    background: var(--accent);
-    border-radius: 40% 60% 60% 40% / 70% 30% 70% 30%;
-    bottom: 15%;
-    right: 5%;
-    animation: contactFloat4 20s ease-in-out infinite;
-    animation-delay: 5s;
+    bottom: 40%;
+    right: -120px;
+    animation: contactLine2 12s linear infinite;
+    animation-delay: 3s;
 }
 
-/* Contact floating animations */
-@keyframes contactFloat1 {
-    0% { 
-        transform: translateY(0) translateX(0) rotate(0deg) scale(1); 
-        border-radius: 50%;
-    }
-    30% { 
-        transform: translateY(-50px) translateX(-30px) rotate(108deg) scale(1.2); 
-        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-    }
-    60% { 
-        transform: translateY(-100px) translateX(20px) rotate(216deg) scale(0.8); 
-        border-radius: 30% 60% 70% 40% / 50% 60% 40% 50%;
-    }
-    100% { 
-        transform: translateY(0) translateX(0) rotate(360deg) scale(1); 
-        border-radius: 50%;
-    }
+/* Contact Keyframes */
+@keyframes contactOrb1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    30% { transform: translate(-40px, 50px) scale(1.2); }
+    60% { transform: translate(30px, -30px) scale(0.8); }
 }
 
-@keyframes contactFloat2 {
-    0% { 
-        transform: translateY(0) translateX(0) rotate(0deg) scale(1); 
-        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    }
-    40% { 
-        transform: translateY(40px) translateX(35px) rotate(144deg) scale(1.3); 
-        border-radius: 70% 30% 60% 40% / 40% 60% 30% 70%;
-    }
-    80% { 
-        transform: translateY(80px) translateX(-15px) rotate(288deg) scale(0.9); 
-        border-radius: 40% 60% 60% 40% / 70% 30% 70% 30%;
-    }
-    100% { 
-        transform: translateY(0) translateX(0) rotate(360deg) scale(1); 
-        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    }
+@keyframes contactOrb2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(50px, -40px) scale(1.1); }
+    75% { transform: translate(-30px, 20px) scale(0.9); }
 }
 
-@keyframes contactFloat3 {
-    0% { 
-        transform: translateY(0) translateX(0) rotate(0deg) scale(1); 
-        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-    }
-    25% { 
-        transform: translateY(-30px) translateX(25px) rotate(90deg) scale(1.4); 
-        clip-path: polygon(30% 0%, 100% 30%, 70% 100%, 0% 70%);
-    }
-    50% { 
-        transform: translateY(-60px) translateX(-10px) rotate(180deg) scale(0.7); 
-        clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-    }
-    75% { 
-        transform: translateY(-30px) translateX(-30px) rotate(270deg) scale(1.1); 
-        clip-path: polygon(50% 0%, 90% 20%, 80% 80%, 20% 90%, 10% 20%);
-    }
-    100% { 
-        transform: translateY(0) translateX(0) rotate(360deg) scale(1); 
-        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-    }
+@keyframes contactOrb3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    40% { transform: translate(-20px, -50px) scale(1.3); }
+    80% { transform: translate(40px, 30px) scale(0.7); }
 }
 
-@keyframes contactFloat4 {
-    0% { 
-        transform: translateY(0) translateX(0) rotate(0deg) scale(1); 
-        border-radius: 40% 60% 60% 40% / 70% 30% 70% 30%;
-    }
-    35% { 
-        transform: translateY(45px) translateX(-25px) rotate(126deg) scale(1.25); 
-        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-    }
-    70% { 
-        transform: translateY(90px) translateX(40px) rotate(252deg) scale(0.85); 
-        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    }
-    100% { 
-        transform: translateY(0) translateX(0) rotate(360deg) scale(1); 
-        border-radius: 40% 60% 60% 40% / 70% 30% 70% 30%;
-    }
+@keyframes contactGeo1 {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(60px, -40px) rotate(360deg); }
+}
+
+@keyframes contactGeo2 {
+    0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+    50% { transform: translate(-40px, 30px) rotate(180deg) scale(1.2); }
+    100% { transform: translate(0, 0) rotate(360deg) scale(1); }
+}
+
+@keyframes contactLine1 {
+    0% { left: -180px; opacity: 0; }
+    10% { opacity: 0.2; }
+    90% { opacity: 0.2; }
+    100% { left: 100%; opacity: 0; }
+}
+
+@keyframes contactLine2 {
+    0% { right: -120px; opacity: 0; }
+    10% { opacity: 0.2; }
+    90% { opacity: 0.2; }
+    100% { right: 100%; opacity: 0; }
 }
 
 .contact-container {
@@ -548,6 +701,8 @@ body {
     margin-bottom: 20px;
     color: var(--light);
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transform: translateY(50px);
 }
 
 .contact p {
@@ -555,6 +710,8 @@ body {
     font-size: 1.1rem;
     margin-bottom: 40px;
     text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(30px);
 }
 
 .contact-form {
@@ -564,6 +721,8 @@ body {
 .form-group {
     margin-bottom: 25px;
     text-align: left;
+    opacity: 0;
+    transform: translateY(30px);
 }
 
 .form-group label {
@@ -618,8 +777,8 @@ body {
     box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
     margin-top: 30px;
     text-transform: uppercase;
-    opacity: 1 !important;
-    visibility: visible !important;
+    opacity: 0;
+    transform: scale(0);
 }
 
 .form-submit-button:hover {
@@ -647,6 +806,8 @@ body {
     text-decoration: none;
     color: var(--light);
     transition: all 0.3s ease;
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
 }
 
 .social-icon:hover {
@@ -681,5 +842,24 @@ body {
     .form-submit-button {
         padding: 12px 30px;
         font-size: 1rem;
+    }
+    
+    /* Reduce floating elements on mobile */
+    .floating-element,
+    .contact-floating-elements .contact-orb,
+    .contact-floating-elements .contact-geo {
+        opacity: 0.06;
+    }
+    
+    .orb-1,
+    .orb-2 {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .contact-orb-1,
+    .contact-orb-2 {
+        width: 120px;
+        height: 120px;
     }
 }
