@@ -132,7 +132,7 @@ body {
     transform: scale(0.8);
 }
 
-/* Enhanced Dynamic Floating Elements */
+/* Large Floating Elements - BIG AND VISIBLE */
 .floating-elements {
     position: absolute;
     top: 0;
@@ -140,124 +140,106 @@ body {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 2;
+    z-index: 1;
 }
 
-.floating-element {
+.big-element {
     position: absolute;
-    opacity: 0.12;
+    opacity: 0.15;
     will-change: transform;
+    filter: blur(0.5px);
 }
 
-/* Gradient Orbs */
-.orb-1 {
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+/* Large Circles - 15% of screen */
+.circle-1 {
+    width: 15vw;
+    height: 15vw;
+    background: radial-gradient(circle, var(--accent) 0%, var(--primary) 70%, transparent 100%);
     border-radius: 50%;
-    top: 10%;
-    left: -10%;
-    animation: orbFloat1 12s ease-in-out infinite;
-    filter: blur(1px);
+    top: 5%;
+    left: -7%;
+    animation: bigFloat1 20s ease-in-out infinite;
 }
 
-.orb-2 {
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+.circle-2 {
+    width: 18vw;
+    height: 18vw;
+    background: radial-gradient(circle, var(--secondary) 0%, var(--accent) 70%, transparent 100%);
     border-radius: 50%;
-    top: 70%;
-    right: -5%;
-    animation: orbFloat2 15s ease-in-out infinite;
-    animation-delay: 2s;
-    filter: blur(1px);
-}
-
-.orb-3 {
-    width: 150px;
-    height: 150px;
-    background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
-    border-radius: 50%;
-    bottom: 20%;
-    left: 20%;
-    animation: orbFloat3 18s ease-in-out infinite;
-    animation-delay: 4s;
-    filter: blur(1px);
-}
-
-/* Geometric Shapes */
-.geo-1 {
-    width: 120px;
-    height: 120px;
-    background: linear-gradient(45deg, var(--accent), var(--primary));
-    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-    top: 30%;
-    right: 15%;
-    animation: geoFloat1 20s linear infinite;
-    opacity: 0.08;
-}
-
-.geo-2 {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(45deg, var(--secondary), var(--accent));
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    bottom: 40%;
-    right: 25%;
-    animation: geoFloat2 16s linear infinite;
+    bottom: 10%;
+    right: -8%;
+    animation: bigFloat2 25s ease-in-out infinite;
     animation-delay: 3s;
-    opacity: 0.1;
 }
 
-.geo-3 {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+.circle-3 {
+    width: 12vw;
+    height: 12vw;
+    background: radial-gradient(circle, var(--primary) 0%, var(--secondary) 70%, transparent 100%);
+    border-radius: 50%;
     top: 60%;
-    left: 10%;
-    animation: geoFloat3 22s linear infinite;
-    animation-delay: 1s;
-    opacity: 0.09;
+    left: 5%;
+    animation: bigFloat3 18s ease-in-out infinite;
+    animation-delay: 6s;
 }
 
-/* Animated Lines */
-.animated-line {
-    position: absolute;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--secondary), transparent);
-    opacity: 0.3;
-}
-
-.line-1 {
-    width: 200px;
-    top: 25%;
-    left: -200px;
-    animation: lineMove1 8s linear infinite;
-}
-
-.line-2 {
-    width: 150px;
-    top: 75%;
-    right: -150px;
-    animation: lineMove2 10s linear infinite;
+/* Large Rectangles - 15% of screen */
+.rectangle-1 {
+    width: 20vw;
+    height: 15vw;
+    background: linear-gradient(45deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+    border-radius: 20px;
+    top: 20%;
+    right: 10%;
+    animation: bigFloat4 22s ease-in-out infinite;
     animation-delay: 2s;
 }
 
-/* Floating Particles */
-.particle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: var(--accent);
-    border-radius: 50%;
-    opacity: 0.6;
+.rectangle-2 {
+    width: 16vw;
+    height: 12vw;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 50%, var(--secondary) 100%);
+    border-radius: 15px;
+    bottom: 30%;
+    left: 15%;
+    animation: bigFloat5 28s ease-in-out infinite;
+    animation-delay: 8s;
 }
 
-.particle-1 { top: 20%; left: 15%; animation: particleFloat 6s ease-in-out infinite; }
-.particle-2 { top: 40%; right: 20%; animation: particleFloat 8s ease-in-out infinite; animation-delay: 1s; }
-.particle-3 { bottom: 30%; left: 25%; animation: particleFloat 7s ease-in-out infinite; animation-delay: 2s; }
-.particle-4 { bottom: 60%; right: 15%; animation: particleFloat 9s ease-in-out infinite; animation-delay: 3s; }
+/* Large Element Animations */
+@keyframes bigFloat1 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+    25% { transform: translate(40px, -30px) rotate(15deg) scale(1.1); }
+    50% { transform: translate(-20px, -60px) rotate(30deg) scale(0.9); }
+    75% { transform: translate(-60px, -40px) rotate(-10deg) scale(1.05); }
+}
+
+@keyframes bigFloat2 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+    30% { transform: translate(-50px, 40px) rotate(-20deg) scale(1.15); }
+    60% { transform: translate(30px, -50px) rotate(25deg) scale(0.85); }
+}
+
+@keyframes bigFloat3 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+    20% { transform: translate(60px, -25px) rotate(35deg) scale(1.2); }
+    40% { transform: translate(-30px, -70px) rotate(-15deg) scale(0.8); }
+    60% { transform: translate(-80px, -30px) rotate(20deg) scale(1.1); }
+    80% { transform: translate(40px, -10px) rotate(-25deg) scale(0.95); }
+}
+
+@keyframes bigFloat4 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+    25% { transform: translate(-40px, 50px) rotate(10deg) scale(1.05); }
+    50% { transform: translate(70px, 20px) rotate(-15deg) scale(0.95); }
+    75% { transform: translate(20px, -40px) rotate(25deg) scale(1.08); }
+}
+
+@keyframes bigFloat5 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+    33% { transform: translate(50px, -60px) rotate(-30deg) scale(1.12); }
+    66% { transform: translate(-40px, 30px) rotate(40deg) scale(0.88); }
+}
 
 /* Scroll Indicator */
 .scroll-indicator {
@@ -305,71 +287,6 @@ body {
     animation: arrowBounce 2s ease-in-out infinite;
 }
 
-/* Keyframe Animations */
-@keyframes orbFloat1 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    25% { transform: translate(50px, -30px) scale(1.1); }
-    50% { transform: translate(-20px, -60px) scale(0.9); }
-    75% { transform: translate(-40px, -20px) scale(1.05); }
-}
-
-@keyframes orbFloat2 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(-30px, -40px) scale(1.2); }
-    66% { transform: translate(20px, -80px) scale(0.8); }
-}
-
-@keyframes orbFloat3 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    20% { transform: translate(40px, -20px) scale(1.15); }
-    40% { transform: translate(-15px, -50px) scale(0.85); }
-    60% { transform: translate(-35px, -30px) scale(1.1); }
-    80% { transform: translate(25px, -10px) scale(0.95); }
-}
-
-@keyframes geoFloat1 {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    25% { transform: translate(-30px, 40px) rotate(90deg); }
-    50% { transform: translate(60px, 20px) rotate(180deg); }
-    75% { transform: translate(20px, -30px) rotate(270deg); }
-    100% { transform: translate(0, 0) rotate(360deg); }
-}
-
-@keyframes geoFloat2 {
-    0% { transform: translate(0, 0) rotate(0deg) scale(1); }
-    30% { transform: translate(40px, -20px) rotate(108deg) scale(1.2); }
-    60% { transform: translate(-20px, 50px) rotate(216deg) scale(0.8); }
-    100% { transform: translate(0, 0) rotate(360deg) scale(1); }
-}
-
-@keyframes geoFloat3 {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    20% { transform: translate(-25px, -35px) rotate(72deg); }
-    40% { transform: translate(45px, -10px) rotate(144deg); }
-    60% { transform: translate(10px, 40px) rotate(216deg); }
-    80% { transform: translate(-35px, 15px) rotate(288deg); }
-    100% { transform: translate(0, 0) rotate(360deg); }
-}
-
-@keyframes lineMove1 {
-    0% { left: -200px; opacity: 0; }
-    10% { opacity: 0.3; }
-    90% { opacity: 0.3; }
-    100% { left: 100%; opacity: 0; }
-}
-
-@keyframes lineMove2 {
-    0% { right: -150px; opacity: 0; }
-    10% { opacity: 0.3; }
-    90% { opacity: 0.3; }
-    100% { right: 100%; opacity: 0; }
-}
-
-@keyframes particleFloat {
-    0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
-    50% { transform: translateY(-20px) scale(1.2); opacity: 1; }
-}
-
 @keyframes scrollPulse {
     0%, 100% { opacity: 0.6; transform: scaleY(1); }
     50% { opacity: 1; transform: scaleY(1.1); }
@@ -408,7 +325,7 @@ body {
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    transition: opacity 2s ease-in-out;
+    transition: opacity 1s ease-in-out;
 }
 
 .project-img.img-1 {
@@ -844,17 +761,26 @@ body {
         font-size: 1rem;
     }
     
-    /* Reduce floating elements on mobile */
-    .floating-element,
-    .contact-floating-elements .contact-orb,
-    .contact-floating-elements .contact-geo {
-        opacity: 0.06;
+    /* Reduce big elements on mobile */
+    .big-element {
+        opacity: 0.08;
     }
     
-    .orb-1,
-    .orb-2 {
-        width: 150px;
-        height: 150px;
+    .circle-1,
+    .circle-2,
+    .circle-3 {
+        width: 25vw;
+        height: 25vw;
+    }
+    
+    .rectangle-1 {
+        width: 30vw;
+        height: 20vw;
+    }
+    
+    .rectangle-2 {
+        width: 25vw;
+        height: 18vw;
     }
     
     .contact-orb-1,
