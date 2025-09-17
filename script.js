@@ -70,10 +70,36 @@ gsap.timeline()
         ease: 'power3.out'
     }, '-=0.6');
 
-// PROJECT SECTIONS - FIXED TIMING: 2s each image, THEN text appears
+// PROJECT SECTIONS - Enhanced with slower image transitions
 document.querySelectorAll('.project-section').forEach((section, index) => {
     const img1 = section.querySelector('.img-1');
     const img2 = section.querySelector('.img-2');
+    
+    // Slower images auto-switching - Show first image longer
+    let currentImage = 1;
+    let imageInterval;
+    
+    const startImageSwitching = () => {
+        // First image shows for 4 seconds
+        setTimeout(() => {
+            gsap.to(img2, { opacity: 0.7, duration: 2, ease: 'power2.inOut' });
+            gsap.to(img1, { opacity: 0.3, duration: 2, ease: 'power2.inOut' });
+            currentImage = 2;
+            
+            // Then continue normal switching every 5 seconds
+            imageInterval = setInterval(() => {
+                if (currentImage === 1) {
+                    gsap.to(img2, { opacity: 0.7, duration: 2, ease: 'power2.inOut' });
+                    gsap.to(img1, { opacity: 0.3, duration: 2, ease: 'power2.inOut' });
+                    currentImage = 2;
+                } else {
+                    gsap.to(img1, { opacity: 1, duration: 2, ease: 'power2.inOut' });
+                    gsap.to(img2, { opacity: 0, duration: 2, ease: 'power2.inOut' });
+                    currentImage = 1;
+                }
+            }, 5000);
+        }, 4000);
+    };
     
     // Create ScrollTrigger for this specific section
     ScrollTrigger.create({
@@ -81,77 +107,49 @@ document.querySelectorAll('.project-section').forEach((section, index) => {
         start: 'top 80%',
         once: true,
         onEnter: () => {
-            // PHASE 1: Show first image for 2 seconds
-            console.log(`Project ${index + 1}: Starting image sequence`);
+            startImageSwitching();
             
-            // First image is already visible, wait 2 seconds
-            setTimeout(() => {
-                console.log(`Project ${index + 1}: Switching to second image`);
-                
-                // PHASE 2: Show second image for 2 seconds
-                gsap.to(img2, { opacity: 0.7, duration: 0.5, ease: 'power2.inOut' });
-                gsap.to(img1, { opacity: 0.3, duration: 0.5, ease: 'power2.inOut' });
-                
-                setTimeout(() => {
-                    console.log(`Project ${index + 1}: Showing content`);
-                    
-                    // PHASE 3: After 4 seconds total (2s + 2s), show content
-                    const timeline = gsap.timeline();
-                    
-                    timeline
-                        .to(section.querySelector('.project-number'), {
-                            scale: 1,
-                            opacity: 0.15,
-                            duration: 0.6,
-                            ease: 'back.out(1.7)'
-                        })
-                        .to(section.querySelector('.project-title'), {
-                            y: 0,
-                            opacity: 1,
-                            duration: 0.6,
-                            ease: 'power3.out'
-                        }, '-=0.3')
-                        .to(section.querySelector('.project-description'), {
-                            y: 0,
-                            opacity: 1,
-                            duration: 0.6,
-                            ease: 'power3.out'
-                        }, '-=0.3')
-                        .to(section.querySelectorAll('.tech-tag'), {
-                            scale: 1,
-                            opacity: 1,
-                            duration: 0.4,
-                            stagger: 0.08,
-                            ease: 'back.out(1.7)'
-                        }, '-=0.2')
-                        .to(section.querySelector('.project-button'), {
-                            scale: 1,
-                            opacity: 1,
-                            duration: 0.8,
-                            ease: 'elastic.out(1, 0.5)',
-                            onComplete: () => {
-                                // Ensure button is fully interactive after animation
-                                const button = section.querySelector('.project-button');
-                                button.style.pointerEvents = 'auto';
-                                button.style.zIndex = '100';
-                                
-                                // START CONTINUOUS IMAGE CYCLING (every 3 seconds)
-                                let currentImage = 2; // We're on image 2 now
-                                setInterval(() => {
-                                    if (currentImage === 1) {
-                                        gsap.to(img2, { opacity: 0.7, duration: 1, ease: 'power2.inOut' });
-                                        gsap.to(img1, { opacity: 0.3, duration: 1, ease: 'power2.inOut' });
-                                        currentImage = 2;
-                                    } else {
-                                        gsap.to(img1, { opacity: 1, duration: 1, ease: 'power2.inOut' });
-                                        gsap.to(img2, { opacity: 0, duration: 1, ease: 'power2.inOut' });
-                                        currentImage = 1;
-                                    }
-                                }, 3000);
-                            }
-                        }, '-=0.1');
-                }, 2000); // Wait 2 more seconds
-            }, 2000); // Wait 2 seconds
+            // Animate overlay content
+            const timeline = gsap.timeline();
+            
+            timeline
+                .to(section.querySelector('.project-number'), {
+                    scale: 1,
+                    opacity: 0.15,
+                    duration: 0.6,
+                    ease: 'back.out(1.7)'
+                })
+                .to(section.querySelector('.project-title'), {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.6,
+                    ease: 'power3.out'
+                }, '-=0.3')
+                .to(section.querySelector('.project-description'), {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.6,
+                    ease: 'power3.out'
+                }, '-=0.3')
+                .to(section.querySelectorAll('.tech-tag'), {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 0.4,
+                    stagger: 0.08,
+                    ease: 'back.out(1.7)'
+                }, '-=0.2')
+                .to(section.querySelector('.project-button'), {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: 'elastic.out(1, 0.5)',
+                    onComplete: () => {
+                        // Ensure button is fully interactive after animation
+                        const button = section.querySelector('.project-button');
+                        button.style.pointerEvents = 'auto';
+                        button.style.zIndex = '100';
+                    }
+                }, '-=0.1');
         }
     });
 });
@@ -266,8 +264,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 1000);
 });
 
-// Parallax effect for big hero elements
-gsap.utils.toArray('.big-element').forEach((element, i) => {
+// Parallax effect for hero shapes - Enhanced for new elements
+gsap.utils.toArray('.floating-element, .particle').forEach((element, i) => {
     gsap.to(element, {
         yPercent: -20 * (i % 3 + 1),
         ease: 'none',
@@ -356,63 +354,85 @@ window.addEventListener('load', () => {
         if (rect.top < window.innerHeight * 0.8) {
             // If section is already in view, trigger the animation immediately
             ScrollTrigger.getById(section.id)?.refresh();
+            
+            // Manual fallback animation if needed
+            setTimeout(() => {
+                const button = section.querySelector('.project-button');
+                if (button && gsap.getProperty(button, 'opacity') < 1) {
+                    gsap.to(button, {
+                        scale: 1,
+                        opacity: 1,
+                        duration: 0.5,
+                        ease: 'power2.out'
+                    });
+                }
+            }, 100);
         }
     });
     
     // Debug logging
-    console.log('Fixed Portfolio loaded successfully');
-    console.log('Project sections found:', document.querySelectorAll('.project-section').length);
-    console.log('Big elements found:', document.querySelectorAll('.big-element').length);
+    console.log('Enhanced Portfolio loaded successfully');
+    console.log('Project buttons found:', document.querySelectorAll('.project-button').length);
+    console.log('Submit button found:', document.querySelector('.form-submit-button') ? 'YES' : 'NO');
+    
+    // Enhanced button check
+    document.querySelectorAll('.project-button').forEach((btn, i) => {
+        console.log(`Project ${i+1}: ${btn.href}`);
+        console.log(`Button ${i+1} opacity:`, gsap.getProperty(btn, 'opacity'));
+        console.log(`Button ${i+1} scale:`, gsap.getProperty(btn, 'scale'));
+    });
 });
 
-// Mouse interaction effects for big floating elements
+// Mouse interaction effects for floating elements
 document.addEventListener('mousemove', (e) => {
     const mouseX = e.clientX / window.innerWidth;
     const mouseY = e.clientY / window.innerHeight;
     
-    // Subtle mouse parallax for big floating elements
-    gsap.utils.toArray('.big-element').forEach((element, i) => {
-        const speed = (i + 1) * 0.2;
+    // Subtle mouse parallax for floating elements
+    gsap.utils.toArray('.floating-element').forEach((element, i) => {
+        const speed = (i + 1) * 0.3;
         gsap.to(element, {
-            x: mouseX * speed * 30,
-            y: mouseY * speed * 30,
-            duration: 1.5,
+            x: mouseX * speed * 20,
+            y: mouseY * speed * 20,
+            duration: 1,
             ease: 'power2.out'
         });
     });
     
     // Contact elements mouse interaction
     gsap.utils.toArray('.contact-orb').forEach((element, i) => {
-        const speed = (i + 1) * 0.15;
+        const speed = (i + 1) * 0.2;
         gsap.to(element, {
-            x: mouseX * speed * 20,
-            y: mouseY * speed * 20,
-            duration: 2,
+            x: mouseX * speed * 15,
+            y: mouseY * speed * 15,
+            duration: 1.5,
             ease: 'power2.out'
         });
     });
 });
 
-// Interactive hover effects for sections
+// Interactive particle effects on hover
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         // Hero section interactions
         const heroSection = document.querySelector('.hero');
         if (heroSection) {
             heroSection.addEventListener('mouseenter', () => {
-                gsap.to('.big-element', {
-                    scale: 1.1,
-                    duration: 0.5,
-                    stagger: 0.1,
+                gsap.to('.particle', {
+                    scale: 1.5,
+                    opacity: 1,
+                    duration: 0.3,
+                    stagger: 0.05,
                     ease: 'power2.out'
                 });
             });
             
             heroSection.addEventListener('mouseleave', () => {
-                gsap.to('.big-element', {
+                gsap.to('.particle', {
                     scale: 1,
-                    duration: 0.8,
-                    stagger: 0.1,
+                    opacity: 0.6,
+                    duration: 0.5,
+                    stagger: 0.05,
                     ease: 'power2.out'
                 });
             });
