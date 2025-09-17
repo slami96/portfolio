@@ -4,7 +4,7 @@ document.documentElement.classList.remove('no-js');
 // Register ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
-// SET INITIAL STATES - This is the key fix!
+// SET INITIAL STATES
 gsap.set('.project-number', { scale: 0, opacity: 0 });
 gsap.set('.project-title', { y: 30, opacity: 0 });
 gsap.set('.project-description', { y: 20, opacity: 0 });
@@ -48,7 +48,7 @@ dots.forEach(dot => {
     });
 });
 
-// Hero animations
+// Hero animations - Enhanced timing
 gsap.timeline()
     .to('.hero-text h1 span', {
         opacity: 1,
@@ -70,25 +70,36 @@ gsap.timeline()
         ease: 'power3.out'
     }, '-=0.6');
 
-// PROJECT SECTIONS - Fixed animation approach
+// PROJECT SECTIONS - Enhanced with slower image transitions
 document.querySelectorAll('.project-section').forEach((section, index) => {
     const img1 = section.querySelector('.img-1');
     const img2 = section.querySelector('.img-2');
-    const overlay = section.querySelector('.project-overlay');
     
-    // Images auto-switching
+    // Slower images auto-switching - Show first image longer
     let currentImage = 1;
-    const imageInterval = setInterval(() => {
-        if (currentImage === 1) {
-            gsap.to(img2, { opacity: 1, duration: 1.5 });
-            gsap.to(img1, { opacity: 0.3, duration: 1.5 });
+    let imageInterval;
+    
+    const startImageSwitching = () => {
+        // First image shows for 4 seconds
+        setTimeout(() => {
+            gsap.to(img2, { opacity: 0.7, duration: 2, ease: 'power2.inOut' });
+            gsap.to(img1, { opacity: 0.3, duration: 2, ease: 'power2.inOut' });
             currentImage = 2;
-        } else {
-            gsap.to(img1, { opacity: 1, duration: 1.5 });
-            gsap.to(img2, { opacity: 0, duration: 1.5 });
-            currentImage = 1;
-        }
-    }, 3000);
+            
+            // Then continue normal switching every 5 seconds
+            imageInterval = setInterval(() => {
+                if (currentImage === 1) {
+                    gsap.to(img2, { opacity: 0.7, duration: 2, ease: 'power2.inOut' });
+                    gsap.to(img1, { opacity: 0.3, duration: 2, ease: 'power2.inOut' });
+                    currentImage = 2;
+                } else {
+                    gsap.to(img1, { opacity: 1, duration: 2, ease: 'power2.inOut' });
+                    gsap.to(img2, { opacity: 0, duration: 2, ease: 'power2.inOut' });
+                    currentImage = 1;
+                }
+            }, 5000);
+        }, 4000);
+    };
     
     // Create ScrollTrigger for this specific section
     ScrollTrigger.create({
@@ -96,42 +107,41 @@ document.querySelectorAll('.project-section').forEach((section, index) => {
         start: 'top 80%',
         once: true,
         onEnter: () => {
-            // Clear any existing timeouts for this section
-            clearTimeout(section.animationTimeout);
+            startImageSwitching();
             
-            // Animate overlay content with proper targeting
+            // Animate overlay content
             const timeline = gsap.timeline();
             
             timeline
                 .to(section.querySelector('.project-number'), {
                     scale: 1,
-                    opacity: 1,
-                    duration: 0.5,
+                    opacity: 0.15,
+                    duration: 0.6,
                     ease: 'back.out(1.7)'
                 })
                 .to(section.querySelector('.project-title'), {
                     y: 0,
                     opacity: 1,
-                    duration: 0.5,
+                    duration: 0.6,
                     ease: 'power3.out'
                 }, '-=0.3')
                 .to(section.querySelector('.project-description'), {
                     y: 0,
                     opacity: 1,
-                    duration: 0.5,
+                    duration: 0.6,
                     ease: 'power3.out'
                 }, '-=0.3')
                 .to(section.querySelectorAll('.tech-tag'), {
                     scale: 1,
                     opacity: 1,
-                    duration: 0.3,
-                    stagger: 0.05,
+                    duration: 0.4,
+                    stagger: 0.08,
                     ease: 'back.out(1.7)'
                 }, '-=0.2')
                 .to(section.querySelector('.project-button'), {
                     scale: 1,
                     opacity: 1,
-                    duration: 0.6,
+                    duration: 0.8,
                     ease: 'elastic.out(1, 0.5)',
                     onComplete: () => {
                         // Ensure button is fully interactive after animation
@@ -144,7 +154,7 @@ document.querySelectorAll('.project-section').forEach((section, index) => {
     });
 });
 
-// Contact section animations - also set initial states
+// Contact section animations
 gsap.set('.contact h2', { y: 50, opacity: 0 });
 gsap.set('.contact-container > p', { y: 30, opacity: 0 });
 gsap.set('.form-group', { y: 30, opacity: 0 });
@@ -231,9 +241,8 @@ if (contactForm) {
     });
 }
 
-// Button hover effects - Enhanced with better targeting
+// Enhanced button hover effects
 document.addEventListener('DOMContentLoaded', () => {
-    // Wait a bit for all elements to be ready
     setTimeout(() => {
         document.querySelectorAll('.project-button, .form-submit-button').forEach(btn => {
             btn.addEventListener('mouseenter', () => {
@@ -252,17 +261,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
         });
-    }, 500);
+    }, 1000);
 });
 
-// Parallax effect for hero shapes
-gsap.utils.toArray('.shape').forEach((shape, i) => {
-    gsap.to(shape, {
-        yPercent: -30 * (i + 1),
+// Parallax effect for hero shapes - Enhanced for new elements
+gsap.utils.toArray('.floating-element, .particle').forEach((element, i) => {
+    gsap.to(element, {
+        yPercent: -20 * (i % 3 + 1),
         ease: 'none',
         scrollTrigger: {
             trigger: '.hero',
             start: 'top top',
+            end: 'bottom top',
+            scrub: 1
+        }
+    });
+});
+
+// Contact parallax effect
+gsap.utils.toArray('.contact-orb, .contact-geo').forEach((element, i) => {
+    gsap.to(element, {
+        yPercent: -15 * (i % 2 + 1),
+        ease: 'none',
+        scrollTrigger: {
+            trigger: '.contact',
+            start: 'top bottom',
             end: 'bottom top',
             scrub: 1
         }
@@ -292,7 +315,7 @@ document.addEventListener('mousemove', (e) => {
 // Cursor grows on interactive elements
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
-        document.querySelectorAll('a, button, .dot').forEach(el => {
+        document.querySelectorAll('a, button, .dot, .scroll-indicator').forEach(el => {
             el.addEventListener('mouseenter', () => {
                 cursor.style.transform = 'scale(2)';
                 cursor.style.background = 'rgba(78, 205, 196, 0.1)';
@@ -303,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 cursor.style.background = 'transparent';
             });
         });
-    }, 500);
+    }, 1000);
 });
 
 // Performance optimization
@@ -348,7 +371,7 @@ window.addEventListener('load', () => {
     });
     
     // Debug logging
-    console.log('Portfolio loaded successfully');
+    console.log('Enhanced Portfolio loaded successfully');
     console.log('Project buttons found:', document.querySelectorAll('.project-button').length);
     console.log('Submit button found:', document.querySelector('.form-submit-button') ? 'YES' : 'NO');
     
@@ -357,5 +380,97 @@ window.addEventListener('load', () => {
         console.log(`Project ${i+1}: ${btn.href}`);
         console.log(`Button ${i+1} opacity:`, gsap.getProperty(btn, 'opacity'));
         console.log(`Button ${i+1} scale:`, gsap.getProperty(btn, 'scale'));
+    });
+});
+
+// Mouse interaction effects for floating elements
+document.addEventListener('mousemove', (e) => {
+    const mouseX = e.clientX / window.innerWidth;
+    const mouseY = e.clientY / window.innerHeight;
+    
+    // Subtle mouse parallax for floating elements
+    gsap.utils.toArray('.floating-element').forEach((element, i) => {
+        const speed = (i + 1) * 0.3;
+        gsap.to(element, {
+            x: mouseX * speed * 20,
+            y: mouseY * speed * 20,
+            duration: 1,
+            ease: 'power2.out'
+        });
+    });
+    
+    // Contact elements mouse interaction
+    gsap.utils.toArray('.contact-orb').forEach((element, i) => {
+        const speed = (i + 1) * 0.2;
+        gsap.to(element, {
+            x: mouseX * speed * 15,
+            y: mouseY * speed * 15,
+            duration: 1.5,
+            ease: 'power2.out'
+        });
+    });
+});
+
+// Interactive particle effects on hover
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        // Hero section interactions
+        const heroSection = document.querySelector('.hero');
+        if (heroSection) {
+            heroSection.addEventListener('mouseenter', () => {
+                gsap.to('.particle', {
+                    scale: 1.5,
+                    opacity: 1,
+                    duration: 0.3,
+                    stagger: 0.05,
+                    ease: 'power2.out'
+                });
+            });
+            
+            heroSection.addEventListener('mouseleave', () => {
+                gsap.to('.particle', {
+                    scale: 1,
+                    opacity: 0.6,
+                    duration: 0.5,
+                    stagger: 0.05,
+                    ease: 'power2.out'
+                });
+            });
+        }
+        
+        // Contact section interactions
+        const contactSection = document.querySelector('.contact');
+        if (contactSection) {
+            contactSection.addEventListener('mouseenter', () => {
+                gsap.to('.contact-geo', {
+                    scale: 1.2,
+                    rotation: '+=45',
+                    duration: 0.5,
+                    ease: 'power2.out'
+                });
+            });
+            
+            contactSection.addEventListener('mouseleave', () => {
+                gsap.to('.contact-geo', {
+                    scale: 1,
+                    duration: 0.5,
+                    ease: 'power2.out'
+                });
+            });
+        }
+    }, 1000);
+});
+
+// Smooth scrolling enhancement
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
     });
 });
