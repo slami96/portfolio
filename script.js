@@ -63,52 +63,40 @@ gsap.timeline()
         ease: 'power3.out'
     }, '-=0.6');
 
-// PROJECT SECTIONS - Animation sequence: img1 -> img2 -> overlay
+// PROJECT SECTIONS - Elements start VISIBLE, we just animate them nicely
 document.querySelectorAll('.project-section').forEach((section, index) => {
     const img1 = section.querySelector('.img-1');
     const img2 = section.querySelector('.img-2');
     const overlay = section.querySelector('.project-overlay');
     
-    // Create ScrollTrigger for each project with more generous trigger
+    // Images are already visible, just add auto-switching
+    let currentImage = 1;
+    setInterval(() => {
+        if (currentImage === 1) {
+            gsap.to(img2, { opacity: 1, duration: 1.5 });
+            gsap.to(img1, { opacity: 0.3, duration: 1.5 });
+            currentImage = 2;
+        } else {
+            gsap.to(img1, { opacity: 1, duration: 1.5 });
+            gsap.to(img2, { opacity: 0, duration: 1.5 });
+            currentImage = 1;
+        }
+    }, 3000);
+    
+    // Animate overlay content on scroll (but overlay is already visible)
     ScrollTrigger.create({
         trigger: section,
-        start: 'top 90%',
-        end: 'bottom 60%',
+        start: 'top 80%',
+        once: true,
         onEnter: () => {
-            console.log(`Animating project ${index + 1}`);
-            
-            // Animate sequence
+            // Animate just the content inside, not the overlay opacity
             gsap.timeline()
-                // Show first image
-                .to(img1, {
-                    opacity: 1,
-                    duration: 0.8,
-                    ease: 'power2.out'
-                })
-                // Show second image
-                .to(img2, {
-                    opacity: 1,
-                    duration: 0.8,
-                    ease: 'power2.out'
-                }, '+=0.3')
-                // Fade first image slightly
-                .to(img1, {
-                    opacity: 0.3,
-                    duration: 0.5
-                }, '-=0.3')
-                // Show overlay - THIS IS THE FIX
-                .to(overlay, {
-                    opacity: 1,
-                    duration: 0.8,
-                    ease: 'power3.out'
-                }, '-=0.2')
-                // Animate content inside overlay
                 .from(overlay.querySelector('.project-number'), {
                     scale: 0,
                     opacity: 0,
                     duration: 0.5,
                     ease: 'back.out(1.7)'
-                }, '-=0.4')
+                })
                 .from(overlay.querySelector('.project-title'), {
                     y: 30,
                     opacity: 0,
@@ -132,16 +120,7 @@ document.querySelectorAll('.project-section').forEach((section, index) => {
                     duration: 0.6,
                     ease: 'elastic.out(1, 0.5)'
                 }, '-=0.1');
-        },
-        once: true
-    });
-    
-    // FALLBACK: Show overlay on hover
-    section.addEventListener('mouseenter', () => {
-        gsap.to(overlay, {
-            opacity: 1,
-            duration: 0.3
-        });
+        }
     });
 });
 
