@@ -17,6 +17,64 @@
         <a href="#contact" class="dot" data-section="contact"></a>
     </nav>
 
+    <!-- About Me Modal -->
+    <div class="about-modal-overlay" id="aboutModal">
+        <div class="about-modal">
+            <button class="modal-close" id="closeModal">×</button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>About Me</h2>
+                    <div class="modal-subtitle">Multimedia Designer & Creative Developer</div>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="modal-section">
+                        <h3>Personal</h3>
+                        <p>I'm Adam Slamen, a 2nd year AP Degree in Multimedia Design student at Business Academy Aarhus, based in the vibrant city of Aarhus, Denmark. I'm passionate about creating digital experiences that blend creativity with functionality.</p>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>Design Philosophy</h3>
+                        <p><em>"I believe great web design should tell a story and evoke emotions."</em></p>
+                        <p>My approach focuses on user-centric design with attention to micro-interactions, inspired by Nordic minimalism mixed with bold, playful elements.</p>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>Skills & Tools</h3>
+                        <div class="skills-grid">
+                            <div class="skill-category">
+                                <h4>Technical</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">React</span>
+                                    <span class="skill-tag">Vue.js</span>
+                                    <span class="skill-tag">Three.js</span>
+                                    <span class="skill-tag">GSAP</span>
+                                    <span class="skill-tag">JavaScript</span>
+                                    <span class="skill-tag">CSS3</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h4>Design</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">Figma</span>
+                                    <span class="skill-tag">Adobe Creative Suite</span>
+                                    <span class="skill-tag">Blender</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p><strong>Specialization:</strong> Interactive 3D web experiences and smooth animations</p>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>Background & Interests</h3>
+                        <p>I started coding during high school and fell in love with the creative possibilities of web development. My work is inspired by Danish design heritage and modern digital art.</p>
+                        <p>When I'm not designing, I enjoy mountain sports and photography, which greatly influence my dynamic design approach. My dream is to work for a creative agency or start my own studio in the future.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Hero Section -->
     <section class="hero" id="home">
         <!-- Enhanced Floating Elements -->
@@ -55,14 +113,22 @@
             <div class="hero-image">
                 <div class="profile-wrapper">
                     <img src="profile.jpg" alt="Adam Slamen Profile" class="profile-img">
+                    <button class="about-me-btn" id="aboutMeBtn">About Me</button>
                 </div>
             </div>
         </div>
         
-        <!-- Scroll Indicator -->
+        <!-- Enhanced Scroll Indicator -->
         <div class="scroll-indicator" onclick="document.getElementById('project1').scrollIntoView({behavior: 'smooth'})">
-            <span class="scroll-text">Explore</span>
-            <div class="scroll-arrow"></div>
+            <span class="scroll-text">See My Designs</span>
+            <div class="scroll-arrow-container">
+                <div class="scroll-line"></div>
+                <div class="scroll-arrow">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 1V15M8 15L3 10M8 15L13 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
         </div>
     </section>
 
