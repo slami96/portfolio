@@ -115,19 +115,19 @@ document.querySelectorAll('.project-section').forEach((section, index) => {
     const startImageSwitching = () => {
         // First image shows for 4 seconds
         setTimeout(() => {
-            gsap.to(img2, { opacity: 0.7, duration: 2, ease: 'power2.inOut' });
-            gsap.to(img1, { opacity: 0.3, duration: 2, ease: 'power2.inOut' });
+            gsap.to(img1, { opacity: 0, duration: 1, ease: 'power2.inOut' });
+            gsap.to(img2, { opacity: 1, duration: 1, ease: 'power2.inOut' });
             currentImage = 2;
             
             // Then continue normal switching every 5 seconds
             imageInterval = setInterval(() => {
                 if (currentImage === 1) {
-                    gsap.to(img2, { opacity: 0.7, duration: 2, ease: 'power2.inOut' });
-                    gsap.to(img1, { opacity: 0.3, duration: 2, ease: 'power2.inOut' });
+                    gsap.to(img1, { opacity: 0, duration: 1, ease: 'power2.inOut' });
+                    gsap.to(img2, { opacity: 1, duration: 1, ease: 'power2.inOut' });
                     currentImage = 2;
                 } else {
-                    gsap.to(img1, { opacity: 1, duration: 2, ease: 'power2.inOut' });
-                    gsap.to(img2, { opacity: 0, duration: 2, ease: 'power2.inOut' });
+                    gsap.to(img2, { opacity: 0, duration: 1, ease: 'power2.inOut' });
+                    gsap.to(img1, { opacity: 1, duration: 1, ease: 'power2.inOut' });
                     currentImage = 1;
                 }
             }, 5000);
