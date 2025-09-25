@@ -13,12 +13,6 @@ const closeModal = document.getElementById('closeModal');
 aboutMeBtn.addEventListener('click', () => {
     aboutModal.classList.add('active');
     document.body.style.overflow = 'hidden';
-    
-    // Animate modal content
-    gsap.fromTo('.modal-section', 
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power3.out', delay: 0.2 }
-    );
 });
 
 // Close modal
@@ -152,6 +146,18 @@ document.querySelectorAll('.project-section').forEach((section, index) => {
             const timeline = gsap.timeline();
             
             timeline
+                .to(section.querySelector('.project-number'), {
+                    scale: 1,
+                    opacity: 0.15,
+                    duration: 0.6,
+                    ease: 'back.out(1.7)'
+                })
+                .to(section.querySelector('.project-title'), {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.6,
+                    ease: 'power3.out'
+                }, '-=0.3')
                 .to(section.querySelector('.project-description'), {
                     y: 0,
                     opacity: 1,
@@ -342,7 +348,7 @@ document.addEventListener('mousemove', (e) => {
 // Cursor grows on interactive elements
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
-        document.querySelectorAll('a, button, .dot, .scroll-indicator, .about-me-btn').forEach(el => {
+        document.querySelectorAll('a, button, .dot, .scroll-indicator').forEach(el => {
             el.addEventListener('mouseenter', () => {
                 cursor.style.transform = 'scale(2)';
                 cursor.style.background = 'rgba(78, 205, 196, 0.1)';
@@ -401,7 +407,6 @@ window.addEventListener('load', () => {
     console.log('Enhanced Portfolio loaded successfully');
     console.log('Project buttons found:', document.querySelectorAll('.project-button').length);
     console.log('Submit button found:', document.querySelector('.form-submit-button') ? 'YES' : 'NO');
-    console.log('About Me button found:', document.querySelector('.about-me-btn') ? 'YES' : 'NO');
     
     // Enhanced button check
     document.querySelectorAll('.project-button').forEach((btn, i) => {
@@ -486,63 +491,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
         }
-        
-        // About Me button hover effects
-        const aboutBtn = document.querySelector('.about-me-btn');
-        if (aboutBtn) {
-            aboutBtn.addEventListener('mouseenter', () => {
-                gsap.to(aboutBtn, {
-                    scale: 1.08,
-                    boxShadow: '0 15px 40px rgba(255, 107, 107, 0.6)',
-                    duration: 0.3,
-                    ease: 'power2.out'
-                });
-            });
-            
-            aboutBtn.addEventListener('mouseleave', () => {
-                gsap.to(aboutBtn, {
-                    scale: 1,
-                    boxShadow: '0 8px 25px rgba(255, 107, 107, 0.4)',
-                    duration: 0.3,
-                    ease: 'power2.out'
-                });
-            });
-        }
     }, 1000);
-});
-
-// Enhanced scroll indicator hover effect
-document.addEventListener('DOMContentLoaded', () => {
-    const scrollIndicator = document.querySelector('.scroll-indicator');
-    if (scrollIndicator) {
-        scrollIndicator.addEventListener('mouseenter', () => {
-            gsap.to('.scroll-text', {
-                color: '#4ECDC4',
-                duration: 0.3,
-                ease: 'power2.out'
-            });
-            gsap.to('.scroll-arrow', {
-                scale: 1.2,
-                color: '#FFE66D',
-                duration: 0.3,
-                ease: 'power2.out'
-            });
-        });
-        
-        scrollIndicator.addEventListener('mouseleave', () => {
-            gsap.to('.scroll-text', {
-                color: 'rgba(255, 255, 255, 0.9)',
-                duration: 0.3,
-                ease: 'power2.out'
-            });
-            gsap.to('.scroll-arrow', {
-                scale: 1,
-                color: '#4ECDC4',
-                duration: 0.3,
-                ease: 'power2.out'
-            });
-        });
-    }
 });
 
 // Smooth scrolling enhancement
@@ -558,54 +507,3 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
-
-// Add modal animation on scroll (subtle background movement)
-window.addEventListener('scroll', () => {
-    if (aboutModal.classList.contains('active')) {
-        const scrollY = window.scrollY;
-        gsap.to('.about-modal', {
-            y: scrollY * 0.1,
-            duration: 0.3,
-            ease: 'power2.out'
-        });
-    }
-});
-
-// Add skill tag hover effects in modal
-document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-        document.querySelectorAll('.skill-tag').forEach(tag => {
-            tag.addEventListener('mouseenter', () => {
-                gsap.to(tag, {
-                    scale: 1.1,
-                    background: 'rgba(78, 205, 196, 0.3)',
-                    borderColor: 'rgba(78, 205, 196, 0.6)',
-                    duration: 0.2,
-                    ease: 'power2.out'
-                });
-            });
-            
-            tag.addEventListener('mouseleave', () => {
-                gsap.to(tag, {
-                    scale: 1,
-                    background: 'rgba(78, 205, 196, 0.2)',
-                    borderColor: 'rgba(78, 205, 196, 0.3)',
-                    duration: 0.2,
-                    ease: 'power2.out'
-                });
-            });
-        });
-    }, 2000);
-});querySelector('.project-number'), {
-                    scale: 1,
-                    opacity: 0.15,
-                    duration: 0.6,
-                    ease: 'back.out(1.7)'
-                })
-                .to(section.querySelector('.project-title'), {
-                    y: 0,
-                    opacity: 1,
-                    duration: 0.6,
-                    ease: 'power3.out'
-                }, '-=0.3')
-                .to(section.
